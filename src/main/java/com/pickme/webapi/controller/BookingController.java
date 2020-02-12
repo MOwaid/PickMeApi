@@ -144,10 +144,16 @@ public class BookingController {
 			//---Save Addresses
 			com.pickme.webapi.document.Address pickupAddress = new com.pickme.webapi.document.Address();
 			pickupAddress.setStreet(booking.getPickupAddress().getStreet());
+			pickupAddress.setlatitude(booking.getPickupAddress().getlatitude());
+			pickupAddress.setlongitude(booking.getPickupAddress().getlongitude());
 			com.pickme.webapi.document.Address savedPickupAddress = addressService.addAddress(pickupAddress);
 			com.pickme.webapi.document.Address destAddress = new com.pickme.webapi.document.Address();
 			destAddress.setStreet(booking.getDestinationAddress().getStreet());
+			destAddress.setlatitude(booking.getDestinationAddress().getlatitude());
+			destAddress.setlongitude(booking.getDestinationAddress().getlongitude());
 			com.pickme.webapi.document.Address savedDestAddress = addressService.addAddress(destAddress);
+			
+			
 			booking.setPickupAddress(savedPickupAddress);
 			booking.setDestinationAddress(savedDestAddress);
 			//----Set addresses to save in customer
@@ -190,9 +196,9 @@ public class BookingController {
 					Driver driver = booking.getDriver();
 					if (driver != null)
 					{
-						String driverLID = driver.getLoginId();
-						if( driverLID != null)
-						body.put("to", "/topics/" + driverLID );
+						String driverID = driver.getId();// getLoginId();
+						if( driverID != null)
+						body.put("to", "/topics/" + driverID );
 						else
 							body.put("to", "/topics/" + "android1");
 							
@@ -448,6 +454,133 @@ public class BookingController {
 		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
+	
+	
+	@RequestMapping(value = "/cancelled/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Booking>> cancelled(@PathVariable String id) {
+		String METHOD_NAME = "cancelled";
+		Response<Booking> response =  new Response<Booking>();
+		try {
+			Booking savedBooking = bookingService.cancelled(id);
+			if(savedBooking!=null){
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking Record has been successfully Updated.");
+			}else{
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Unable to update booking");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, CustomerController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	
+	@RequestMapping(value = "/inprogress/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Booking>> inprogress(@PathVariable String id) {
+		String METHOD_NAME = "inprogress";
+		Response<Booking> response =  new Response<Booking>();
+		try {
+			Booking savedBooking = bookingService.inprogress(id);
+			if(savedBooking!=null){
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking Record has been successfully Updated.");
+			}else{
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Unable to update booking");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, CustomerController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/dispatch/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Booking>> dispatch(@PathVariable String id) {
+		String METHOD_NAME = "dispatch";
+		Response<Booking> response =  new Response<Booking>();
+		try {
+			Booking savedBooking = bookingService.dispatch(id);
+			if(savedBooking!=null){
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking Record has been successfully Updated.");
+			}else{
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Unable to update booking");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, CustomerController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/onhold/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Booking>> onhold(@PathVariable String id) {
+		String METHOD_NAME = "onhold";
+		Response<Booking> response =  new Response<Booking>();
+		try {
+			Booking savedBooking = bookingService.onhold(id);
+			if(savedBooking!=null){
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking Record has been successfully Updated.");
+			}else{
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Unable to update booking");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, CustomerController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	
 	
 	
 	

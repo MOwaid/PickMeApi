@@ -158,6 +158,49 @@ public class BookingService {
 		return bookingRepo.save(booking);
 	}
 	
+	public Booking inprogress(String id) {
+		Optional<Booking> optional = bookingRepo.findById(id);
+		Booking booking  = optional.get();
+		if(booking==null)
+			return null;
+
+		booking.setStatus(ApplicationConstants.BOOKING_STATUS_INPROGRESS);
+		return bookingRepo.save(booking);
+	}
+	
+	public Booking dispatch(String id) {
+		Optional<Booking> optional = bookingRepo.findById(id);
+		Booking booking  = optional.get();
+		if(booking==null)
+			return null;
+
+		booking.setStatus(ApplicationConstants.BOOKING_STATUS_DISPATCH);
+		return bookingRepo.save(booking);
+	}
+	
+	
+	public Booking onhold(String id) {
+		Optional<Booking> optional = bookingRepo.findById(id);
+		Booking booking  = optional.get();
+		if(booking==null)
+			return null;
+
+		booking.setStatus(ApplicationConstants.BOOKING_STATUS_ONHOLD);
+		return bookingRepo.save(booking);
+	}
+	
+	
+	
+	public Booking cancelled(String id) {
+		Optional<Booking> optional = bookingRepo.findById(id);
+		Booking booking  = optional.get();
+		if(booking==null)
+			return null;
+
+		booking.setStatus(ApplicationConstants.BOOKING_STATUS_CANCELLED);
+		return bookingRepo.save(booking);
+	}
+	
 	public Booking reject(String id) {
 		Optional<Booking> optional = bookingRepo.findById(id);
 		Booking booking  = optional.get();

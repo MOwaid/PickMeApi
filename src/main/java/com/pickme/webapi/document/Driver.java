@@ -47,6 +47,9 @@ public class Driver {
 	private String createdBy;
 	private Date lastUpdated;
 	private String updatedBy;
+	private String latitude;
+	private String longitude;
+	
 	public Driver(){
 	}
 	public Driver(String id){
@@ -250,6 +253,20 @@ public class Driver {
 	}
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	
+	public String getlatitude() {
+		return this.latitude ;
+	}
+	public void setlatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	
+	public String getlongitude() {
+		return this.longitude ;
+	}
+	public void setlongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	
 }

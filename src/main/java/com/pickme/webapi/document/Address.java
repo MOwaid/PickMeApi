@@ -40,6 +40,9 @@ public class Address {
 	private Date lastUpdated;
 	private String updatedBy;
 	private String completeAddress;
+	private String latitude;
+	private String longitude;
+	
 	
 
 	public boolean isDeleted() {
@@ -231,5 +234,20 @@ public class Address {
 	public void setCompleteAddress(String completeAddress) {
 		this.completeAddress = completeAddress;
 	}
+	
+	public String getlatitude() {
+		return this.latitude ;
+	}
+	public void setlatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	
+	public String getlongitude() {
+		return this.longitude ;
+	}
+	public void setlongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	
 	
 }
