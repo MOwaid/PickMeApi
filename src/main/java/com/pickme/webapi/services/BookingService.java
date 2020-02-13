@@ -87,11 +87,13 @@ public class BookingService {
 	public Booking updateBooking(Booking booking) {
 		String id  = booking.getId();
 		String newStatus = booking.getStatus();
+		
 		Optional<Booking> updateBookingOptional = bookingRepo.findById(id);
 		Booking updatedBoking = updateBookingOptional.get();
 		if(updateBookingOptional==null && updatedBoking==null )
 			return null;
 		updatedBoking.setStatus(booking.getStatus());
+		updatedBoking = booking;
 
 		return bookingRepo.save(updatedBoking);
 	}

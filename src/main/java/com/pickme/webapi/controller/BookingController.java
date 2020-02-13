@@ -194,19 +194,20 @@ public class BookingController {
 					//----Push Notification
 					JSONObject body = new JSONObject();
 					Driver driver = booking.getDriver();
-					if (driver != null)
+					String driverID = driver.getId();// getLoginId();
+					if (driver != null && driverID != null)
 					{
-						String driverID = driver.getId();// getLoginId();
+						//String driverID = driver.getId();// getLoginId();
 						if( driverID != null)
 						body.put("to", "/topics/" + driverID );
-						else
-							body.put("to", "/topics/" + "android1");
+						/*else
+							body.put("to", "/topics/" + "android1");*/
 							
-					}
+				/*}
 					else
 					{
 						body.put("to", "/topics/" + "android1");
-					}
+					}*/
 				    body.put("priority", "high");
 				    //body.put("android_channel_id", "pickmecab_updates");
 				    
@@ -257,7 +258,7 @@ public class BookingController {
 				      e.printStackTrace();
 				    }
 				 
-				   
+					}
 				}
 
 		}

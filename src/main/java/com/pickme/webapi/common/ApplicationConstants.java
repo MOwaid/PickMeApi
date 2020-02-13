@@ -19,6 +19,7 @@ public class ApplicationConstants {
 	public static final String BOOKING_STATUS_ONHOLD = "ONHOLED";
 	public static final String BOOKING_STATUS_ACCEPTED= "ACCEPTED";
 	public static final String BOOKING_STATUS_REJECTED = "REJECTED";
+	public static final String BOOKING_STATUS_DELETED = "DELETED";
 
 	//USER TYPE
 	public static final String USER="1";
