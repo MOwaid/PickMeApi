@@ -2,25 +2,35 @@ package com.pickme.webapi.services;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.List;
+
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.document.Driver;
 import com.pickme.webapi.model.AssignDto;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
 import com.pickme.webapi.common.Response;
 import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.repo.mongo.BookingRepository;
 import com.pickme.webapi.repo.mongo.LogRepository;
+import com.pickme.webapi.services.AndroidPushNotificationsService;
 
 @Service
 public class BookingService {
 	@Autowired BookingRepository bookingRepo;
+	@Autowired AndroidPushNotificationsService androidPushNotificationsService;
 	@Autowired LogRepository logRepo;
 	public Response<List<Booking>> getAllBookings(Integer first,Integer rows, String globalFilter,String sortOrder) {
 		Response<List<Booking>> response = new Response<List<Booking>>();
@@ -97,6 +107,70 @@ public class BookingService {
 
 		return bookingRepo.save(updatedBoking);
 	}
+	
+	public String pushNotificationToTopic(String topic, String driverID, String bookingID, String DriverName)
+	{
+		//----Push Notification
+		JSONObject body = new JSONObject();
+		String firebaseResponse="";
+	
+			if( topic != null)
+			body.put("to", "/topics/" + topic );
+		
+	    body.put("priority", "high");
+	    //body.put("android_channel_id", "pickmecab_updates");
+	    
+	    
+	    JSONObject notification = new JSONObject();
+	    notification.put("body",DriverName + " a new Job has been assigned to you.");
+	    notification.put("title","You get a new job Mr. " + DriverName);
+	    
+	    body.put("notification", notification);
+	    JSONObject data = new JSONObject();
+	    data.put("title", "Job Creation Notification");
+	    data.put("body", "New job has been created and assigned to you");
+	  //  data.put("message", "New Job");
+	   // data.put("click_action","new_ride");
+	    data.put("driver-id", driverID);
+	    data.put("booking-id", bookingID);
+	 
+	    
+	    
+	    body.put("data", data);
+	 
+	/**
+	    {
+	       
+	       "data": {
+	        "title": "JSA Notification",
+	          "body": "Happy Message!"
+	          "Key-1": "JSA Data 1",
+	          "Key-2": "JSA Data 2"
+	       },
+	       "to": "/topics/JavaSampleApproach",
+	       "priority": "high"
+	    }
+	*/
+	 
+	    HttpEntity<String> request = new HttpEntity<>(body.toString());
+	 
+	    CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
+	    CompletableFuture.allOf(pushNotification).join();
+	 
+	    try {
+	      firebaseResponse = pushNotification.get();
+	      return ("New Booking Record is Created."+firebaseResponse);
+	     
+	    } catch (InterruptedException e) {
+	      e.printStackTrace();
+	      return firebaseResponse;
+	    } catch (ExecutionException e) {
+	      e.printStackTrace();
+	      return firebaseResponse;
+	    }
+	 
+}
+	
 
 	public Booking updateBookingStatus(Booking bookingObj) {
 		Optional<Booking> bookingOptional = bookingRepo.findById(bookingObj.getId());

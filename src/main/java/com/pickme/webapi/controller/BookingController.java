@@ -192,23 +192,15 @@ public class BookingController {
 					
 					
 					//----Push Notification
-					JSONObject body = new JSONObject();
+					
 					Driver driver = booking.getDriver();
 					String driverID = driver.getId();// getLoginId();
 					if (driver != null && driverID != null)
 					{
-						//String driverID = driver.getId();// getLoginId();
-						if( driverID != null)
-						body.put("to", "/topics/" + driverID );
-						/*else
-							body.put("to", "/topics/" + "android1");*/
-							
-				/*}
-					else
-					{
-						body.put("to", "/topics/" + "android1");
-					}*/
-				    body.put("priority", "high");
+						
+						firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
+					//	response.setMessageDetail(firebaseResponse);
+				   /* body.put("priority", "high");
 				    //body.put("android_channel_id", "pickmecab_updates");
 				    
 				    
@@ -243,7 +235,7 @@ public class BookingController {
 				    }
 				*/
 				 
-				    HttpEntity<String> request = new HttpEntity<>(body.toString());
+				 /*   HttpEntity<String> request = new HttpEntity<>(body.toString());
 				 
 				    CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
 				    CompletableFuture.allOf(pushNotification).join();
@@ -256,7 +248,7 @@ public class BookingController {
 				      e.printStackTrace();
 				    } catch (ExecutionException e) {
 				      e.printStackTrace();
-				    }
+				    }*/
 				 
 					}
 				}
@@ -279,11 +271,24 @@ public class BookingController {
 		Response<Booking> response =  new Response<Booking>();
 		try {
 			    Booking savedBooking = bookingService.updateBooking(booking);
+			    String firebaseResponse="";
 			    response.setData(savedBooking);
 			    response.setStatusCode("0");
 			    response.setMessage(Response.SUCCESSFUL);
 			    response.setSuccessful(true);
 			    response.setMessageDetail("Booking Record has been successfully Updated.");
+			    
+
+				//----Push Notification
+				
+				Driver driver = booking.getDriver();
+				String driverID = driver.getId();// getLoginId();
+				if (driver != null && driverID != null)
+				{
+					
+					firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
+					response.setMessageDetail(firebaseResponse);
+				}
 		}
 		catch(Exception ex) {
 			response.setStatusCode("-1");

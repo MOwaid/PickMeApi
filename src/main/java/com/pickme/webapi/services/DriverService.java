@@ -77,6 +77,8 @@ public class DriverService {
 		return httpUserSession;
 	}
 
+	
+	
 	public List<Driver> getDriverByStatus(String status) {
 		List<Driver> drivers = driverRepo.findByStatusAndDeleted(status,false);
 		return drivers;
