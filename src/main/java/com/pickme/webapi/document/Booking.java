@@ -11,6 +11,7 @@ public class Booking {
 	@Id
 	private String id;
 	private String referenceId;
+	private String PrefixID;
 	private Date startTime;
 	private String priority;
 	private Customer customer;
@@ -145,5 +146,11 @@ public class Booking {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getPrefixID() {
+		return PrefixID;
+	}
+	public void setPrefixID(String prefixID) {
+		PrefixID = prefixID;
 	}
 }

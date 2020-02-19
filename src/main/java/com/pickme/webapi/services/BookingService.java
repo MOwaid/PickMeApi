@@ -22,6 +22,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
 import com.pickme.webapi.common.Response;
+import com.pickme.webapi.document.AutoUniqueID;
 import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.repo.mongo.BookingRepository;
 import com.pickme.webapi.repo.mongo.LogRepository;
@@ -32,6 +33,7 @@ public class BookingService {
 	@Autowired BookingRepository bookingRepo;
 	@Autowired AndroidPushNotificationsService androidPushNotificationsService;
 	@Autowired LogRepository logRepo;
+	@Autowired AutoUniqueIDService autoIdservice;
 	public Response<List<Booking>> getAllBookings(Integer first,Integer rows, String globalFilter,String sortOrder) {
 		Response<List<Booking>> response = new Response<List<Booking>>();
 		if(first != null & rows != null) {
@@ -91,6 +93,12 @@ public class BookingService {
 		}else{
 			return null;
 		}*/
+		
+		AutoUniqueID ID = new AutoUniqueID();
+		ID.setCount(0);
+		ID.setPrefix("BK-");
+		ID = autoIdservice.GetNewRef(ID);
+		bookingObj.setPrefixID(ID.getPrefix()+ID.getCount().toString());
 		setStatus(bookingObj);
 		return bookingRepo.insert(bookingObj);
 	}
@@ -219,9 +227,17 @@ public class BookingService {
 		Booking booking  = optional.get();
 		if(booking==null)
 			return null;
+		String status = booking.getStatus();
 
+		 if (status == ApplicationConstants.BOOKING_STATUS_BOOKED || status == ApplicationConstants.BOOKING_STATUS_DELETED || status == ApplicationConstants.BOOKING_STATUS_CANCELLED )
+	        {
+        	return booking;
+        }
+        else
+        {
 		booking.setStatus(ApplicationConstants.BOOKING_STATUS_CONFIRMED);
 		return bookingRepo.save(booking);
+        }
 	}
 
 	public Booking complete(String id) {
@@ -267,6 +283,24 @@ public class BookingService {
 	
 	
 	
+	public Booking booked(String id) {
+		Optional<Booking> optional = bookingRepo.findById(id);
+		Booking booking  = optional.get();
+		if(booking==null)
+			return null;
+		if(booking.getDriver()!=null)
+		{
+			booking.setStatus(ApplicationConstants.BOOKING_STATUS_ALLOCATED);
+		}
+		else
+		{
+
+		booking.setStatus(ApplicationConstants.BOOKING_STATUS_BOOKED);
+		}
+		return bookingRepo.save(booking);
+	}
+	
+	
 	public Booking cancelled(String id) {
 		Optional<Booking> optional = bookingRepo.findById(id);
 		Booking booking  = optional.get();
@@ -282,10 +316,19 @@ public class BookingService {
 		Booking booking  = optional.get();
 		if(booking==null)
 			return null;
+		
+		String status = booking.getStatus();
 
-		booking.setStatus(ApplicationConstants.BOOKING_STATUS_BOOKED);
-		booking.setDriver(null);
-		return bookingRepo.save(booking);
+		 if (status == ApplicationConstants.BOOKING_STATUS_BOOKED || status == ApplicationConstants.BOOKING_STATUS_DELETED || status == ApplicationConstants.BOOKING_STATUS_CANCELLED )
+	        {
+	        	return booking;
+	        }
+	        else
+	        {
+				booking.setStatus(ApplicationConstants.BOOKING_STATUS_REJECTED);
+				
+				return bookingRepo.save(booking);
+	        }
 	}
 
 	public Booking assign(AssignDto assignDto) {

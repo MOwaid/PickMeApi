@@ -460,7 +460,36 @@ public class BookingController {
 		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
-	
+	@RequestMapping(value = "/booked/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Booking>> booked(@PathVariable String id) {
+		String METHOD_NAME = "booked";
+		Response<Booking> response =  new Response<Booking>();
+		try {
+			Booking savedBooking = bookingService.booked(id);
+			if(savedBooking!=null){
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking Record has been successfully Updated.");
+			}else{
+				response.setData(savedBooking);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Unable to update booking");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, CustomerController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
 	
 	@RequestMapping(value = "/cancelled/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Response<Booking>> cancelled(@PathVariable String id) {
