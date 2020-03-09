@@ -1,6 +1,13 @@
 package com.pickme.webapi.services;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -16,8 +23,11 @@ import com.pickme.webapi.model.AssignDto;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +92,40 @@ public class BookingService {
 		response.setData(bookingList);
 		return response;
 	}
+	
+public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String driverId) {
+		
+		Response<List<Booking>> response = new Response<List<Booking>>();
+		
+
+		
+		
+		  
+		  LocalDate today = LocalDate.now();
+		  LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
+		/*  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+		  String text = today.format(formatter);
+		  String text1 = tomorrow.format(formatter);
+		  LocalDate strDate = LocalDate.parse(text, formatter);
+		  
+		  LocalDate mytomorrow = LocalDate.parse(text1, formatter);;*/
+		
+		
+		
+		
+		/*List<Booking> bookingList = bookingRepo.findByDriverIdAndDate(driverId,fromDate,toDate);*/
+		  
+		List<Booking> bookingList = bookingRepo.getObjectBystartTimeAndDriverId(today, tomorrow, driverId);
+		/*List<Booking> bookingList = bookingRepo.searchByDriverIdAndDate(driverId);*/
+			
+		response.setData(bookingList);
+		return response;
+	}
+	
+	
+	
+	
+	
 	public boolean deleteBooking(String id) {
 		return true;
 	}
@@ -201,7 +245,7 @@ public class BookingService {
 			if(currentDate.compareTo(bookingStartDate)==0){
 				booking.setStatus(ApplicationConstants.BOOKING_STATUS_BOOKED);
 			}else if(bookingStartDate.after(currentDate)){
-				booking.setStatus(ApplicationConstants.BOOKING_STATUS_PRE_BOOKED);
+				booking.setStatus(ApplicationConstants.BOOKING_STATUS_BOOKED);
 			}
 
 		}else{

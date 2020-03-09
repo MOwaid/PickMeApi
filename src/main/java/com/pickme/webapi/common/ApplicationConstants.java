@@ -6,6 +6,7 @@ public class ApplicationConstants {
 	public static final String MODULE_DRIVER = "Driver";
 	public static final String APPLICATION_NAME = "Pick Me";
 	public static final String MODULE_Address = "Address";
+	public static final String MODULE_ACCOUNT = "Account";
 	
 	// Booking Status
 	public static final String BOOKING_STATUS_DISPATCH = "DISPATCH";
@@ -20,7 +21,38 @@ public class ApplicationConstants {
 	public static final String BOOKING_STATUS_ACCEPTED= "ACCEPTED";
 	public static final String BOOKING_STATUS_REJECTED = "REJECTED";
 	public static final String BOOKING_STATUS_DELETED = "DELETED";
+	
+	// Driver status
+	public static final String DRIVER_STATUS_ONLINE = "ONLINE";
+	public static final String DRIVER_STATUS_OFFLINE = "OFFLINE";
+	public static final String DRIVER_STATUS_POB = "POB";
+	public static final String DRIVER_STATUS_ARRIVED = "ARRIVED";
+	public static final String DRIVER_STATUS_BUSY = "BUSY";
+	public static final String DRIVER_STATUS_ONTHEWAY = "ONTHEWAY";
+	
+	public static final String DRIVERACC_STATUS_ACTIVE = "ACTIVE";
+	public static final String DRIVERACC_STATUS_DEACTIVE = "DEACTIVE";
+	public static final String DRIVERACC_STATUS_BLOCKED = "BLOCKED";
+	public static final String DRIVERACC_STATUS_OVERDUE = "OVERDUE";
+	public static final String DRIVERACC_STATUS_BLACKLIST = "BLACKLIST";
 
+	
+	// COMPANY ACCOUNT STATUS
+	public static final String ACC_STATUS_APPROVED = "APPROVED";
+	public static final String ACC_STATUS_WAITING_APPROVAL = "WAITINGAPPROVAL";
+	public static final String ACC_STATUS_ONHOLD = "ONHOLED";
+	public static final String ACC_STATUS_ACCEPTED= "CLOSED";
+	public static final String ACC_STATUS_REJECTED = "REJECTED";
+	public static final String ACC_STATUS_DELETED = "DELETED";
+	public static final String ACC_STATUS_LIMITED = "LIMITED";
+	public static final String ACC_STATUS_OVERDUE = "OVERDUE";
+	public static final String ACC_STATUS_BLOCKED = "BLOCKED";
+	
+	public static final String ACC_TYPE_COMPANY = "COMPANY";
+	public static final String ACC_TYPE_INDIVIDUAL = "INDIVIDUAL";
+	
+	
+	
 	//USER TYPE
 	public static final String USER="1";
 	public static final String DRIVER="2";

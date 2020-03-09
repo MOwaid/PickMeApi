@@ -1,6 +1,8 @@
 package com.pickme.webapi.model;
 
 import com.pickme.webapi.document.Vehicle;
+
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -198,5 +200,6 @@ public class Driver {
 	public void setLongi(String longi) {
 		this.longi = longi;
 	}
-	
+
+
 }

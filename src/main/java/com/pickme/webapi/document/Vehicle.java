@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 public class Vehicle {
 	 @Id
 	 private String id;
+	 
 	 private String vehicleRef;
 	 private String vehicleAKA;
 	 private String vehicleMake;
@@ -18,6 +19,16 @@ public class Vehicle {
 	 private Date plateExpiry;
 	 private String vehiclePhone;
 	 private String vehicleInsurer;
+	 private String vehicleInsImg;
+	 private String vehicleMotImg;
+	 private String vehicleRTaxImg;
+	 private String vehicleRuningPaperImg;
+	 private String vehicleTaxImg;	
+	 private String vehicleExtraImg1;
+	 private String vehicleExtraImg2;
+	 private String vehicleExtraImg3;
+	 private String vehicleExtraImg4;
+	 
 	 private String vehicleInsurPolicyNumber;
 	 private Date insuranceExpiry;
 	 private String motRef;
@@ -206,5 +217,59 @@ public class Vehicle {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public String getVehicleInsImg() {
+		return vehicleInsImg;
+	}
+	public void setVehicleInsImg(String vehicleInsImg) {
+		this.vehicleInsImg = vehicleInsImg;
+	}
+	public String getVehicleMotImg() {
+		return vehicleMotImg;
+	}
+	public void setVehicleMotImg(String vehicleMotImg) {
+		this.vehicleMotImg = vehicleMotImg;
+	}
+	public String getVehicleRTaxImg() {
+		return vehicleRTaxImg;
+	}
+	public void setVehicleRTaxImg(String vehicleRTaxImg) {
+		this.vehicleRTaxImg = vehicleRTaxImg;
+	}
+	public String getVehicleExtraImg1() {
+		return vehicleExtraImg1;
+	}
+	public void setVehicleExtraImg1(String vehicleExtraImg1) {
+		this.vehicleExtraImg1 = vehicleExtraImg1;
+	}
+	public String getVehicleExtraImg2() {
+		return vehicleExtraImg2;
+	}
+	public void setVehicleExtraImg2(String vehicleExtraImg2) {
+		this.vehicleExtraImg2 = vehicleExtraImg2;
+	}
+	public String getVehicleExtraImg3() {
+		return vehicleExtraImg3;
+	}
+	public void setVehicleExtraImg3(String vehicleExtraImg3) {
+		this.vehicleExtraImg3 = vehicleExtraImg3;
+	}
+	public String getVehicleExtraImg4() {
+		return vehicleExtraImg4;
+	}
+	public void setVehicleExtraImg4(String vehicleExtraImg4) {
+		this.vehicleExtraImg4 = vehicleExtraImg4;
+	}
+	public String getVehicleRuningPaperImg() {
+		return vehicleRuningPaperImg;
+	}
+	public void setVehicleRuningPaperImg(String vehicleRuningPaperImg) {
+		this.vehicleRuningPaperImg = vehicleRuningPaperImg;
+	}
+	public String getVehicleTaxImg() {
+		return vehicleTaxImg;
+	}
+	public void setVehicleTaxImg(String vehicleTaxImg) {
+		this.vehicleTaxImg = vehicleTaxImg;
 	}
 }

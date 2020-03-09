@@ -14,8 +14,14 @@ public class Booking {
 	private String PrefixID;
 	private Date startTime;
 	private String priority;
+	private String linkedJourneyId;
+	private String isReturnJourney;
+	private String linkedJourneyBKId;
+	private String flightNumber;
+	
 	private Customer customer;
 	private Address pickupAddress;
+	private Address[] viaAddress;
 	private Address destinationAddress;
 	private String name;
 	private String instructions;
@@ -29,6 +35,10 @@ public class Booking {
 	private String lead;
 	private String status;
 	private String site;
+	private String flightNo;
+	private String Price;
+	private String drvcomm;
+	private String basecomm;
 	public String getId() {
 		return id;
 	}
@@ -152,5 +162,60 @@ public class Booking {
 	}
 	public void setPrefixID(String prefixID) {
 		PrefixID = prefixID;
+	}
+
+	public String getLinkedJourneyId() {
+		return linkedJourneyId;
+	}
+	public void setLinkedJourneyId(String linkedJourneyId) {
+		this.linkedJourneyId = linkedJourneyId;
+	}
+	public String getIsReturnJourney() {
+		return isReturnJourney;
+	}
+	public void setIsReturnJourney(String isReturnJourney) {
+		this.isReturnJourney = isReturnJourney;
+	}
+	public String getLinkedJourneyBKId() {
+		return linkedJourneyBKId;
+	}
+	public void setLinkedJourneyBKId(String linkedJourneyBKId) {
+		this.linkedJourneyBKId = linkedJourneyBKId;
+	}
+	public String getFlightNumber() {
+		return flightNumber;
+	}
+	public void setFlightNumber(String flightNumber) {
+		this.flightNumber = flightNumber;
+	}
+	public Address[] getViaAddress() {
+		return viaAddress;
+	}
+	public void setViaAddress(Address[] viaAddress) {
+		this.viaAddress = viaAddress;
+	}
+	public String getFlightNo() {
+		return flightNo;
+	}
+	public void setFlightNo(String flightNo) {
+		this.flightNo = flightNo;
+	}
+	public String getPrice() {
+		return Price;
+	}
+	public void setPrice(String price) {
+		Price = price;
+	}
+	public String getDrvcomm() {
+		return drvcomm;
+	}
+	public void setDrvcomm(String drvcomm) {
+		this.drvcomm = drvcomm;
+	}
+	public String getBasecomm() {
+		return basecomm;
+	}
+	public void setBasecomm(String basecomm) {
+		this.basecomm = basecomm;
 	}
 }

@@ -1,0 +1,176 @@
+package com.pickme.webapi.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pickme.webapi.common.ApplicationConstants;
+import com.pickme.webapi.common.Logger;
+import com.pickme.webapi.common.Response;
+import com.pickme.webapi.document.Account;
+import com.pickme.webapi.document.Booking;
+import com.pickme.webapi.services.AccountService;
+
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+	@Autowired AccountService accountService;
+	@Autowired Logger LOGGER;
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<Response<List<Account>>> getAllAccounts(@RequestParam(value = "first", required = false) Integer first,
+		    @RequestParam(value = "rows", required = false) Integer rows,
+		    @RequestParam(value = "sortField", required = false) String sortOrder,
+		    @RequestParam(value = "globalFilter", required = false) String globalFilter,
+		    @RequestParam(value = "filters", required = false) String filters) {
+		String METHOD_NAME = "getAllAccounts";
+		
+		Response<List<Account>> response = new Response<List<Account>>();
+		try {			
+				response = accountService.getAllAccounts(first,rows,globalFilter,sortOrder);
+				if(response != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail(response.getData().size()+" Records Matched.");
+				}
+				else {
+					response = new Response<List<Account>>();
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Record Matched.");
+				}
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<List<Account>>> responseEntity = new ResponseEntity<Response<List<Account>>>(response,HttpStatus.OK);				
+		return responseEntity;
+	}
+	
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<Response<Account>> create(@RequestBody Account Account) {
+		String METHOD_NAME = "create";
+		Response<Account> response =  new Response<Account>();
+		try {
+			Account savedacc = accountService.create(Account);
+			    response.setData(savedacc);
+			    response.setStatusCode("0");
+			    response.setMessage(Response.SUCCESSFUL);
+			    response.setSuccessful(true);
+			    response.setMessageDetail("New Account Record is Created.");
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+		    response.setMessage(Response.FAILED);
+		    response.setSuccessful(false);
+		    response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
+		}
+		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Account>> update(@RequestBody Account Account) {
+		String METHOD_NAME = "update";
+		Response<Account> response =  new Response<Account>();
+		try {
+				Account savedAcc = accountService.updateAccount(Account);
+			    response.setData(savedAcc);
+			    response.setStatusCode("0");
+			    response.setMessage(Response.SUCCESSFUL);
+			    response.setSuccessful(true);
+			    response.setMessageDetail("Address Record has been successfully Updated.");
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+		    response.setMessage(Response.FAILED);
+		    response.setSuccessful(false);
+		    response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Response<Account>> getAccountById(@PathVariable String id) {	
+		String METHOD_NAME = "getAccountById";
+		Response<Account> response = new Response<Account>();
+		try {			
+			Account account = accountService.getAccountById(id);
+				response.setData(account);
+				if(account != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("Get Account by ID request was Successful.");			
+				}
+				else {
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Account Record Found for ID '"+id+"'");
+				}		
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);				
+		return responseEntity;		
+	}
+	
+	@RequestMapping(value = "/status/", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Account>> updateAccountByStatus(@RequestBody Account account) {
+		String METHOD_NAME = "updateAccountByStatus";
+		Response<Account> response = new Response<Account>();
+		Account accountResponse=null;
+		try {
+			accountResponse = accountService.updateAccountStatus(account);
+			//response.setData(booking);
+			if(accountResponse != null) {
+				response.setData(accountResponse);
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Booking status successfully updated.");
+			}
+			else {
+
+				response.setStatusCode("-1");
+				response.setMessage(Response.FAILED);
+				response.setSuccessful(false);
+				response.setMessageDetail("Invalid Request");
+			}
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}
+		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		return responseEntity;
+	}
+
+	
+	
+}

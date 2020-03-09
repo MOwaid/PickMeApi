@@ -8,6 +8,8 @@ public class DrivingLicense {
 	private Date expiryDate;
 	private String badge;
 	private Date badgeExpiry;
+	private String LicenseImg;
+	private String LicenseImgBack;
 	private String badgeType;
 	private String driverLicenseNu;
 	private Date schoolBadgeExpiry;
@@ -66,6 +68,12 @@ public class DrivingLicense {
 	}
 	public void setPvgDisclosureDi(String pvgDisclosureDi) {
 		this.pvgDisclosureDi = pvgDisclosureDi;
+	}
+	public String getLicenseImg() {
+		return LicenseImg;
+	}
+	public void setLicenseImg(String licenseImg) {
+		LicenseImg = licenseImg;
 	}
 	
 }

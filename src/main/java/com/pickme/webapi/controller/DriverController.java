@@ -8,6 +8,7 @@ import com.pickme.webapi.document.HttpUserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Logger;
@@ -153,6 +155,76 @@ public class DriverController {
 		ResponseEntity<Response<Driver>> responseEntity = new ResponseEntity<Response<Driver>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
+	
+	
+/*	@RequestMapping(value = "/photos/add", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Driver>> addPhoto(@PathVariable String id, @RequestParam("image") MultipartFile image, Model model) {
+		String METHOD_NAME = "addPhoto";
+		Response<Driver> response =  new Response<Driver>();
+		try {
+		    Driver savedDriver = driverService.addPhoto(id, image);
+		    response.setData(savedDriver);
+		    response.setStatusCode("0");
+		    response.setMessage(Response.SUCCESSFUL);
+		    response.setSuccessful(true);
+		    response.setMessageDetail("Driver Record has been successfully Updated.");
+	}
+	catch(Exception ex) {
+		response.setStatusCode("-1");
+	    response.setMessage(Response.FAILED);
+	    response.setSuccessful(false);
+	    response.setMessageDetail("ERROR: "+ex.getMessage());
+		LOGGER.error(ApplicationConstants.MODULE_CUSTOMER, DriverController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+	}
+	ResponseEntity<Response<Driver>> responseEntity = new ResponseEntity<Response<Driver>>(response,HttpStatus.OK);
+	return responseEntity;
+	
+	}*/
+/*	
+	@GetMapping("/photos/{id}")
+	public String getPhoto(@PathVariable String id, Model model) {
+	    Photo photo = photoService.getPhoto(id);
+	    model.addAttribute("title", photo.getTitle());
+	    model.addAttribute("image", 
+	      Base64.getEncoder().encodeToString(photo.getImage().getData()));
+	    return "photos";
+	}
+	
+	
+	@RequestMapping(value = "/photos/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Response<Driver>> getPhoto(@PathVariable String id) {
+		String METHOD_NAME = "getPhoto";
+		Response<Driver> response = new Response<Driver>();
+		try {			
+				Driver Driver = driverService.getPhoto(id);
+				response.setData(Driver);
+				if(Driver != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("Get Driver by ID request was Successful.");			
+				}
+				else {
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Driver Record Found for ID '"+id+"'");
+				}		
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_DRIVER, DriverController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<Driver>> responseEntity = new ResponseEntity<Response<Driver>>(response,HttpStatus.OK);				
+		return responseEntity;		
+	}
+	
+	*/
+	
+	
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public ResponseEntity<Response<Driver>> update(@RequestBody Driver driver) {
 		String METHOD_NAME = "update";

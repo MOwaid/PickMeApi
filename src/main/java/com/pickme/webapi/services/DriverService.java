@@ -1,5 +1,6 @@
 package com.pickme.webapi.services;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +9,13 @@ import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Util;
 import com.pickme.webapi.document.HttpUserSession;
 import com.pickme.webapi.repo.mongo.HttpUserSessionRepository;
+
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pickme.webapi.document.Driver;
 import com.pickme.webapi.repo.mongo.DriverRepository;
@@ -50,6 +55,21 @@ public class DriverService {
 		Driver newDriver = driverRepo.save(driver);
 		return newDriver;
 	}
+	
+	
+	/*public Driver addPhoto(String id, MultipartFile file) throws IOException { 
+       
+		Optional<Driver> driver = driverRepo.findById(id);
+		driver.get().setPhoto(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+		Driver newDriver = driverRepo.save(driver.get());
+		return newDriver;
+        
+    }
+ */
+  
+	
+	
+	
 	public boolean deleteDriver(String id) {
 		return driverRepo.deleteDriver(id);	
 	}

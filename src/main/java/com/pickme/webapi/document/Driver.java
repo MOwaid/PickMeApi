@@ -3,6 +3,7 @@ package com.pickme.webapi.document;
 import java.util.Date;
 import java.util.Map;
 
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.pickme.webapi.model.Address;
@@ -15,6 +16,7 @@ import com.pickme.webapi.model.PaymentOptions;
 public class Driver {
 	@org.springframework.data.annotation.Id
 	private String id;
+	private String photo;
 	private String firstName;
 	private String lastName;
 	private String AKA;
@@ -49,6 +51,15 @@ public class Driver {
 	private String updatedBy;
 	private String latitude;
 	private String longitude;
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 	
 	public Driver(){
 	}

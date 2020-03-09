@@ -650,7 +650,45 @@ public class BookingController {
 		ResponseEntity<Response<Booking>> responseEntity = new ResponseEntity<Response<Booking>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
-
+	
+	
+	
+	@RequestMapping(value = "/driverBookingBystartTime/{driverId}", method = RequestMethod.GET)
+	public ResponseEntity<Response<List<Booking>>> getBookingsByDriverIdstartTimeSorted(@PathVariable String driverId,
+			@RequestParam(value = "fromDate", required = false)  @DateTimeFormat(pattern="yyyy-MM-dd")java.util.Date fromDate,
+		    @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") java.util.Date toDate) {	
+		String METHOD_NAME = "getBookingsByDriverIdstartTimeSorted";
+		Response<List<Booking>> response = new Response<List<Booking>>();
+		try {			
+				response = bookingService.getBookingsByDriverIdstartTimeSorted(driverId);
+				
+				if(response != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("Get Booking by Driver ID request was Successful.");			
+				}
+				else {
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Booking Record Found for Driver ID '"+driverId+"'");
+				}		
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			e.printStackTrace();
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, BookingController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<List<Booking>>> responseEntity = new ResponseEntity<Response<List<Booking>>>(response,HttpStatus.OK);				
+		return responseEntity;		
+	}
+	
+	
+	
 	@RequestMapping(value = "/driverBooking/{driverId}", method = RequestMethod.GET)
 	public ResponseEntity<Response<List<Booking>>> getBookingByDriverId(@PathVariable String driverId,
 			@RequestParam(value = "fromDate", required = false)  @DateTimeFormat(pattern="yyyy-MM-dd")java.util.Date fromDate,
