@@ -13,4 +13,7 @@ public interface AddressRepository extends MongoRepository<Address, String> {
 	public List<Address> findByDeleted(boolean deleted);
 	public List<Address> findAllBy(TextCriteria criteria);
 	List<Address> findByCompleteAddressLike(String text);
+	
+	List<Address> findBystreet(String street);
+	
 }

@@ -18,6 +18,8 @@ public interface BookingRepository extends MongoRepository<Booking, String>{
 	Page<Booking> findByStatus(String status, Pageable pageable);
 	List<Booking> findByStatus(String status);
 	List<Booking> findByDriverId(String driverId);
+	List<Booking> findByCustomerId(String CustomerId);
+	
 	Page<Booking> findByDriverId(String driverId, Pageable pageable);
 	Page<Booking> findAll(Pageable pageable);
 	Page<Booking> findByDriver(Driver driver, Pageable pageable);
@@ -28,6 +30,7 @@ public interface BookingRepository extends MongoRepository<Booking, String>{
 	@Query("{ 'driver' : {'id' :?0} }")
 	List<Booking> searchByDriverIdAndDate(String driverId);
 	
+    List<Booking> findAllBystartTimeBetween(LocalDate bTimeStart,LocalDate bTimeEnd);
 
 	
 	@Query("{'startTime' : { $gte: ?0, $lte: ?1 } }")                 

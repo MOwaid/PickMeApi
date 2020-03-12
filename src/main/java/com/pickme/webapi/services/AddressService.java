@@ -38,9 +38,15 @@ public class AddressService {
 	}
 
 	public Address addAddress(Address address) {
+		
+		List<Address> found = addressRepo.findBystreet(address.getStreet());
+		if(found == null)
+		{	
 		setCompleteAddress(address);
 		Address newAddress = addressRepo.insert(address);
 		return newAddress;
+		}
+		return address;		
 	}
 
 	private void setCompleteAddress(Address address) {

@@ -23,6 +23,7 @@ import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Logger;
 import com.pickme.webapi.common.Response;
 import com.pickme.webapi.document.Booking;
+import com.pickme.webapi.document.Customer;
 import com.pickme.webapi.document.Driver;
 import com.pickme.webapi.services.BookingService;
 import com.pickme.webapi.services.CustomerService;
@@ -157,7 +158,7 @@ public class BookingController {
 			booking.setPickupAddress(savedPickupAddress);
 			booking.setDestinationAddress(savedDestAddress);
 			//----Set addresses to save in customer
-			com.pickme.webapi.model.AddressSearchModel address1 = new com.pickme.webapi.model.AddressSearchModel();
+		/*	com.pickme.webapi.model.AddressSearchModel address1 = new com.pickme.webapi.model.AddressSearchModel();
 			address1.setAddressId(savedPickupAddress.getId());
 			address1.setAddressString(savedPickupAddress.getStreet());
 			com.pickme.webapi.model.AddressSearchModel address2 = new com.pickme.webapi.model.AddressSearchModel();
@@ -167,13 +168,24 @@ public class BookingController {
 			newAdrModel[0]= address1;
 			newAdrModel[1]= address2;
 			
+			*/
+			
 			//--- Save Customer
 			com.pickme.webapi.document.Customer newCustomer = new com.pickme.webapi.document.Customer();
-			newCustomer.setFirstName(booking.getCustomer().getFirstName());
+			
+			if(booking.getCustomer() !=null && booking.getCustomer().getId() == null)
+			{
+				/*newCustomer.setFirstName(booking.getCustomer().getFirstName());*/
+				newCustomer = booking.getCustomer();
+				//newCustomer.setAddresses(newAdrModel);
+				com.pickme.webapi.document.Customer savedCustomer = customerService.addCustomer(newCustomer);
+				booking.getCustomer().setId(savedCustomer.getId());
+			}
+			/*newCustomer.setFirstName(booking.getCustomer().getFirstName());
 			newCustomer.setAddresses(newAdrModel);
-			com.pickme.webapi.document.Customer savedCustomer = customerService.addCustomer(newCustomer);
+			com.pickme.webapi.document.Customer savedCustomer = customerService.addCustomer(newCustomer);*/
 			//---Set saved customer Id in Booking
-			booking.getCustomer().setId(savedCustomer.getId());
+			
 			//
 			Booking savedBooking = bookingService.create(booking);
 			String firebaseResponse="";
@@ -687,6 +699,39 @@ public class BookingController {
 		return responseEntity;		
 	}
 	
+	@RequestMapping(value = "/customerBooking/{customerId}", method = RequestMethod.GET)
+	public ResponseEntity<Response<List<Booking>>> getBookingByCustomerId(@PathVariable String customerId,
+			@RequestParam(value = "fromDate", required = false)  @DateTimeFormat(pattern="yyyy-MM-dd")java.util.Date fromDate,
+		    @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") java.util.Date toDate) {	
+		String METHOD_NAME = "getBookingByCustomerId";
+		Response<List<Booking>> response = new Response<List<Booking>>();
+		try {			
+				response = bookingService.getBookingsByCustomerId(customerId, fromDate, toDate);
+				
+				if(response != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("Get Booking by Driver ID request was Successful.");			
+				}
+				else {
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Booking Record Found for Driver ID '"+customerId+"'");
+				}		
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			e.printStackTrace();
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, BookingController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<List<Booking>>> responseEntity = new ResponseEntity<Response<List<Booking>>>(response,HttpStatus.OK);				
+		return responseEntity;		
+	}
 	
 	
 	@RequestMapping(value = "/driverBooking/{driverId}", method = RequestMethod.GET)

@@ -19,7 +19,10 @@ import java.util.concurrent.ExecutionException;
 
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.document.Driver;
+import com.pickme.webapi.document.Customer;
+import com.pickme.webapi.services.CustomerService;
 import com.pickme.webapi.model.AssignDto;
+
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +47,62 @@ public class BookingService {
 	@Autowired AndroidPushNotificationsService androidPushNotificationsService;
 	@Autowired LogRepository logRepo;
 	@Autowired AutoUniqueIDService autoIdservice;
+	@Autowired CustomerService custService;
 	public Response<List<Booking>> getAllBookings(Integer first,Integer rows, String globalFilter,String sortOrder) {
 		Response<List<Booking>> response = new Response<List<Booking>>();
 		if(first != null & rows != null) {
 			if(first > 0) {
 				rows+=first;
 			}
-			Page<Booking> pageResult = bookingRepo.findAll(PageRequest.of(first, rows));
-			long totalRecords = pageResult.getTotalElements();
-			response.setData(pageResult.getContent());
-			response.setTotalRecords(totalRecords);
+			
+			
+			if (globalFilter != null)
+			{
+					if(globalFilter.compareTo("1")  == 0)
+					{
+					
+					  LocalDate today = LocalDate.now();
+					  LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
+					  LocalDate yesterday = today.minus(1, ChronoUnit.DAYS);
+					//  Date = getZeroTimeDate(today.getChronology().dateNow());
+					  
+				/*	  List<Article> result = repository.findAllWithCreationDateTimeBefore(
+					          new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2017-12-15 10:00"));
+					 
+					  */
+					  
+		 			  List<Booking> pageResult =bookingRepo.findAllBystartTimeBetween(yesterday,tomorrow);
+					  long totalRecords = pageResult.size();// getTotalElements();
+					  response.setData(pageResult);// .getContent());
+					  response.setTotalRecords(totalRecords);
+					}
+			}
+			else
+			{
+				 Page<Booking> pageResult =bookingRepo.findAll(PageRequest.of(first, rows,Sort.by("id").descending()));
+				 long totalRecords = pageResult.getTotalElements();
+				 response.setData(pageResult.getContent());
+				 response.setTotalRecords(totalRecords);
+			}
+			
+			
+			
+			
 		}
 		return response;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public Booking getBookingById(String id) {
 		Optional<Booking> booking = bookingRepo.findById(id);
 		return booking != null ? booking.get() : null;
@@ -92,6 +138,25 @@ public class BookingService {
 		response.setData(bookingList);
 		return response;
 	}
+	
+	
+	
+public Response<List<Booking>> getBookingsByCustomerId(String CustomerId,Date fromDate,Date toDate) {
+		
+		Response<List<Booking>> response = new Response<List<Booking>>();
+		
+		
+		/*List<Booking> bookingList = bookingRepo.findByDriverIdAndDate(driverId,fromDate,toDate);*/
+		List<Booking> bookingList = bookingRepo.findByCustomerId(CustomerId);
+		/*List<Booking> bookingList = bookingRepo.searchByDriverIdAndDate(driverId);*/
+	
+			
+		response.setData(bookingList);
+		return response;
+	}
+		
+	
+	
 	
 public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String driverId) {
 		
@@ -143,6 +208,9 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 		ID.setPrefix("BK-");
 		ID = autoIdservice.GetNewRef(ID);
 		bookingObj.setPrefixID(ID.getPrefix()+ID.getCount().toString());
+		
+		
+		
 		setStatus(bookingObj);
 		return bookingRepo.insert(bookingObj);
 	}
@@ -252,6 +320,7 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 			//if(currentDate.compareTo(bookingStartDate)==0)
 				booking.setStatus(ApplicationConstants.BOOKING_STATUS_ALLOCATED);
 		}
+		
 
 
 	}

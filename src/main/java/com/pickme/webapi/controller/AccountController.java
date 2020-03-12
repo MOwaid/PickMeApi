@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Logger;
 import com.pickme.webapi.common.Response;
-import com.pickme.webapi.document.Account;
+import com.pickme.webapi.document.CAccount;
 import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.services.AccountService;
 
@@ -26,14 +26,14 @@ public class AccountController {
 	@Autowired Logger LOGGER;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<Response<List<Account>>> getAllAccounts(@RequestParam(value = "first", required = false) Integer first,
+	public ResponseEntity<Response<List<CAccount>>> getAllAccounts(@RequestParam(value = "first", required = false) Integer first,
 		    @RequestParam(value = "rows", required = false) Integer rows,
 		    @RequestParam(value = "sortField", required = false) String sortOrder,
 		    @RequestParam(value = "globalFilter", required = false) String globalFilter,
 		    @RequestParam(value = "filters", required = false) String filters) {
 		String METHOD_NAME = "getAllAccounts";
 		
-		Response<List<Account>> response = new Response<List<Account>>();
+		Response<List<CAccount>> response = new Response<List<CAccount>>();
 		try {			
 				response = accountService.getAllAccounts(first,rows,globalFilter,sortOrder);
 				if(response != null) {			
@@ -43,7 +43,7 @@ public class AccountController {
 					response.setMessageDetail(response.getData().size()+" Records Matched.");
 				}
 				else {
-					response = new Response<List<Account>>();
+					response = new Response<List<CAccount>>();
 					response.setStatusCode("0");
 					response.setMessage(Response.SUCCESSFUL);
 					response.setSuccessful(true);
@@ -56,17 +56,17 @@ public class AccountController {
 			response.setMessageDetail(e.getMessage());
 			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
-		ResponseEntity<Response<List<Account>>> responseEntity = new ResponseEntity<Response<List<Account>>>(response,HttpStatus.OK);				
+		ResponseEntity<Response<List<CAccount>>> responseEntity = new ResponseEntity<Response<List<CAccount>>>(response,HttpStatus.OK);				
 		return responseEntity;
 	}
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Response<Account>> create(@RequestBody Account Account) {
+	public ResponseEntity<Response<CAccount>> create(@RequestBody CAccount Account) {
 		String METHOD_NAME = "create";
-		Response<Account> response =  new Response<Account>();
+		Response<CAccount> response =  new Response<CAccount>();
 		try {
-			Account savedacc = accountService.create(Account);
+			CAccount savedacc = accountService.create(Account);
 			    response.setData(savedacc);
 			    response.setStatusCode("0");
 			    response.setMessage(Response.SUCCESSFUL);
@@ -80,15 +80,15 @@ public class AccountController {
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
 			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
 		}
-		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Account>> update(@RequestBody Account Account) {
+	public ResponseEntity<Response<CAccount>> update(@RequestBody CAccount Account) {
 		String METHOD_NAME = "update";
-		Response<Account> response =  new Response<Account>();
+		Response<CAccount> response =  new Response<CAccount>();
 		try {
-				Account savedAcc = accountService.updateAccount(Account);
+				CAccount savedAcc = accountService.updateAccount(Account);
 			    response.setData(savedAcc);
 			    response.setStatusCode("0");
 			    response.setMessage(Response.SUCCESSFUL);
@@ -102,16 +102,16 @@ public class AccountController {
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
 			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
-		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Response<Account>> getAccountById(@PathVariable String id) {	
+	public ResponseEntity<Response<CAccount>> getAccountById(@PathVariable String id) {	
 		String METHOD_NAME = "getAccountById";
-		Response<Account> response = new Response<Account>();
+		Response<CAccount> response = new Response<CAccount>();
 		try {			
-			Account account = accountService.getAccountById(id);
+			CAccount account = accountService.getAccountById(id);
 				response.setData(account);
 				if(account != null) {			
 					response.setStatusCode("0");
@@ -133,15 +133,15 @@ public class AccountController {
 			response.setMessageDetail(e.getMessage());
 			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
-		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);				
+		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);				
 		return responseEntity;		
 	}
 	
 	@RequestMapping(value = "/status/", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Account>> updateAccountByStatus(@RequestBody Account account) {
+	public ResponseEntity<Response<CAccount>> updateAccountByStatus(@RequestBody CAccount account) {
 		String METHOD_NAME = "updateAccountByStatus";
-		Response<Account> response = new Response<Account>();
-		Account accountResponse=null;
+		Response<CAccount> response = new Response<CAccount>();
+		CAccount accountResponse=null;
 		try {
 			accountResponse = accountService.updateAccountStatus(account);
 			//response.setData(booking);
@@ -167,7 +167,7 @@ public class AccountController {
 			response.setMessageDetail(e.getMessage());
 			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
-		ResponseEntity<Response<Account>> responseEntity = new ResponseEntity<Response<Account>>(response,HttpStatus.OK);
+		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
 	}
 
