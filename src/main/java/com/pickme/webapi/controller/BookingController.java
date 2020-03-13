@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Logger;
 import com.pickme.webapi.common.Response;
@@ -28,13 +29,18 @@ import com.pickme.webapi.document.Driver;
 import com.pickme.webapi.services.BookingService;
 import com.pickme.webapi.services.CustomerService;
 import com.pickme.webapi.services.AddressService;
+import com.pickme.webapi.controller.WebSocketController;
 import com.pickme.webapi.services.AndroidPushNotificationsService;
+
+
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
+	ObjectMapper mapper = new ObjectMapper();
 	@Autowired BookingService bookingService;
 	@Autowired CustomerService customerService;
 	@Autowired AddressService addressService;
+	@Autowired WebSocketController webSocket;
 	@Autowired Logger LOGGER;
 	@Autowired AndroidPushNotificationsService androidPushNotificationsService;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -379,7 +385,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(value = "/reject/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Booking>> accept(@PathVariable String id) {
+	public ResponseEntity<Response<Booking>> reject(@PathVariable String id) {
 		String METHOD_NAME = "reject";
 		Response<Booking> response =  new Response<Booking>();
 		try {
@@ -390,6 +396,8 @@ public class BookingController {
 				response.setMessage(Response.SUCCESSFUL);
 				response.setSuccessful(true);
 				response.setMessageDetail("Booking Record has been successfully Updated.");
+				String jsonString = mapper.writeValueAsString(savedBooking);
+				webSocket.sendMessage(jsonString);
 			}else{
 				response.setData(savedBooking);
 				response.setStatusCode("0");
@@ -411,7 +419,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Booking>> reject(@PathVariable String id) {
+	public ResponseEntity<Response<Booking>> accept(@PathVariable String id) {
 		String METHOD_NAME = "accept";
 		Response<Booking> response =  new Response<Booking>();
 		try {
