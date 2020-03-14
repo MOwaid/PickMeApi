@@ -20,7 +20,7 @@ import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.services.CAccountService;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/customerAccounts")
 public class CAccountController {
 	@Autowired CAccountService accountService;
 	@Autowired Logger LOGGER;
@@ -54,7 +54,7 @@ public class CAccountController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CAccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_CACCOUNT, CAccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<List<CAccount>>> responseEntity = new ResponseEntity<Response<List<CAccount>>>(response,HttpStatus.OK);				
 		return responseEntity;
@@ -78,7 +78,7 @@ public class CAccountController {
 		    response.setMessage(Response.FAILED);
 		    response.setSuccessful(false);
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
+			LOGGER.error(ApplicationConstants.MODULE_CACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
 		}
 		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
@@ -100,7 +100,7 @@ public class CAccountController {
 		    response.setMessage(Response.FAILED);
 		    response.setSuccessful(false);
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_CACCOUNT, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
 		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
@@ -131,7 +131,7 @@ public class CAccountController {
 			response.setMessage(Response.FAILED);
 			response.setSuccessful(false);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_CACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);				
 		return responseEntity;		
@@ -165,7 +165,7 @@ public class CAccountController {
 			response.setMessage(Response.FAILED);
 			response.setSuccessful(false);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_CACCOUNT, CustomerController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
 		ResponseEntity<Response<CAccount>> responseEntity = new ResponseEntity<Response<CAccount>>(response,HttpStatus.OK);
 		return responseEntity;
