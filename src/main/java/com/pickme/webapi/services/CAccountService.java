@@ -11,12 +11,12 @@ import com.pickme.webapi.document.CAccount;
 import com.pickme.webapi.document.AutoUniqueID;
 import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.common.Response;
-import com.pickme.webapi.repo.mongo.AccountRepository;
+import com.pickme.webapi.repo.mongo.CAccountRepository;
 
 @Service
-public class AccountService {
+public class CAccountService {
 
-	@Autowired AccountRepository Accrepo;
+	@Autowired CAccountRepository Accrepo;
 	
 	public Response<List<CAccount>> getAllAccounts(Integer first,Integer rows, String globalFilter,String sortOrder) {
 		Response<List<CAccount>> response = new Response<List<CAccount>>();

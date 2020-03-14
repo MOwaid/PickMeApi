@@ -9,7 +9,7 @@ import com.pickme.webapi.document.CAccount;
 
 
 
-public interface AccountRepository extends MongoRepository<CAccount, String> {
+public interface CAccountRepository extends MongoRepository<CAccount, String> {
 	Page<CAccount> findAll(Pageable pageable);
 
 }

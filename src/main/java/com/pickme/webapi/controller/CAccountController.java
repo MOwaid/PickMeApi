@@ -17,12 +17,12 @@ import com.pickme.webapi.common.Logger;
 import com.pickme.webapi.common.Response;
 import com.pickme.webapi.document.CAccount;
 import com.pickme.webapi.document.Booking;
-import com.pickme.webapi.services.AccountService;
+import com.pickme.webapi.services.CAccountService;
 
 @RestController
 @RequestMapping("/accounts")
-public class AccountController {
-	@Autowired AccountService accountService;
+public class CAccountController {
+	@Autowired CAccountService accountService;
 	@Autowired Logger LOGGER;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class AccountController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, AccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_ACCOUNT, CAccountController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<List<CAccount>>> responseEntity = new ResponseEntity<Response<List<CAccount>>>(response,HttpStatus.OK);				
 		return responseEntity;
