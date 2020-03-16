@@ -5,8 +5,20 @@ public class ApplicationConstants {
 	public static final String MODULE_CUSTOMER = "Customer";
 	public static final String MODULE_DRIVER = "Driver";
 	public static final String APPLICATION_NAME = "Pick Me";
-	public static final String MODULE_Address = "Address";
-	public static final String MODULE_ACCOUNT = "Account";
+	public static final String MODULE_ADDRESS = "Address";
+	public static final String MODULE_CACCOUNT = "Customer Account";
+
+		//New
+	public static final String MODULE_COMPANY_TYPES = "COMPANY_TYPE";
+	public static final String MODULE_BANKS = "BANKS";
+	public static final String MODULE_ACCOUNTS = "ACCOUNTS";
+	public static final String MODULE_OWNERS = "OWNERS";
+	public static final String MODULE_FARES = "FARES";
+	public static final String MODULE_DISPLAY_SETTING = "DISPLAY_SETTINGS";
+	public static final String MODULE_DRIVER_PRIVILEGES = "DRIVER_PRIVILEGES";
+	public static final String MODULE_CURRENCY = "CURRENCY";
+	public static final String MODULE_CONFIGURATION = "CONFIGURATION";
+	public static final String MODULE_COMPANY = "COMPANY";
 	
 	// Booking Status
 	public static final String BOOKING_STATUS_DISPATCH = "DISPATCH";

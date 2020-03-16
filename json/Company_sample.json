@@ -1,0 +1,398 @@
+{
+	"companyName": "Axis eBusiness",
+	"companyShortName": "Axis",
+    "companyCode" : "AXEBIZ",
+    "companyLogo" : "",
+	"companyType": "Private Limited",
+    "businessRegistrationNumber" : "22232323233445454",
+    "fbrRegistrationNumber":"fbr3443432010",
+    "NTN":"978937889372",
+    "salesTaxRegistrationNumber":"0987653",
+    "accountsDetailsList" : [
+        {
+            "customerNumber" : "Yawar Saeed Khan",
+            "IBAN" : "PKZAB01234567890123456800",
+            "cardNumber" : "",
+            "nameOnCard" : "",
+            "cardExpiryDate" : "",
+            "cardCSV" : "",
+            "accountNumber" : "",
+            "titleOfAccount" : "YAWAR KHAN",
+            "branchCode" : "0412",
+            "branchName" : "MCB Tower Branch",
+            "branchAddress" : "Karachi",
+            "bankDetails" :
+                    {
+                        "bankCode" : "MCB",
+                        "bankName" : "MCB Bank Limited",
+                        "bankAddress" : 
+                        {
+                            "streetAddressL1" : "",
+                            "streetAddressL2" : "",
+                            "suburb" : "",
+                            "district" : "",
+                            "zipCode" : ""
+                        },
+                        "countryCode" : "PK",
+                        "deleted" : null,
+                        "comments": "Test Bank Object 1",
+                        "dateCreated" : "",
+                        "createdBy" : "yawar",
+                        "lastUpdated" : "",
+                        "updatedBy" : "yawar"
+                    },
+            "comments": "Test Account Object 1",
+            "deleted": null,
+            "dateCreated": "",
+            "createdBy": "yawar",
+            "lastUpdated": "",
+            "updatedBy": "yawar"
+        }],
+	"ownersDetailsList": [
+        {
+            "identityNumber" : "4201455-12",
+            "firstName" : "Muhammad",
+            "middleName" : "",
+            "lastName" : "Owaid",
+            "email" : "m.owaid@axis.com",
+            "businessContactNumber" : "",
+            "mobileNumber" : "03344763481",
+            "homeNumber" : "",
+            "ownershipPercentage" : "50",
+            "address" :
+            {
+                "streetAddressL1" : "House 12",
+                "streetAddressL2" : "Gulberg Street",
+                "district" : "Nazimabad",
+                "zipCode" : "72240",
+                "city" : 
+                    {
+                        "cityCode" : "KHI",
+                        "cityName" : "Karachi",
+                        "areaDialCode" : "021",
+                        "cityFares" : 
+                            {
+                                "dayFare" : "150",
+	                            "nightFare" : "200",
+                                "waitFare" : "100",
+                                "specialFee" : "15",
+                                "specialDiscount": "10",
+                                "comments": "Test Owner City Fares Object 1",
+                                "deleted": null,
+                                "dateCreated": "",
+                                "createdBy": "yawar",
+                                "lastUpdated": "",
+                                "updatedBy": "yawar"
+                            },
+                        "comments": "Test Owner City Object 1",
+                        "deleted": null,
+                        "dateCreated": "",
+                        "createdBy": "yawar",
+                        "lastUpdated": "",
+                        "updatedBy": "yawar"
+                    },
+                "country" : 
+                    {
+                        "countryCode" : "PK",
+                        "countryName" : "Pakistan",
+                        "currencyDetails" :
+                            {
+                                "currencyCode" : "PKR",
+                                "currencyName" : "PakistanI Rupees",
+                                "countryCode" : "PK",
+                                "currencySymbol" : "",
+                                "dollarXchangeRate" : "140",
+                                "comments": "Test Owner Country Currency Object 1",
+                                "deleted": null,
+                                "dateCreated": "",
+                                "createdBy": "yawar",
+                                "lastUpdated": "",
+                                "updatedBy": "yawar"
+                            },
+                        "areaDialCode" : "91",
+                        "countryFares" : 
+                            {
+                                "dayFare" : "130",
+	                            "nightFare" : "160",
+                                "waitFare" : "75",
+                                "specialFee" : "20",
+                                "specialDiscount": "20",
+                                "comments": "Test Owner Country Fares Object 1",
+                                "deleted": null,
+                                "dateCreated": "",
+                                "createdBy": "yawar",
+                                "lastUpdated": "",
+                                "updatedBy": "yawar"    
+                            },
+                        "comments": "Test Owner Country Object 1",
+                        "deleted": null,
+                        "dateCreated": "",
+                        "createdBy": "yawar",
+                        "lastUpdated": "",
+                        "updatedBy": "yawar"   
+                    }
+            },
+            "comments": "Test Owner Object 1",
+            "deleted": null,
+            "dateCreated": "",
+            "createdBy": "yawar",
+            "lastUpdated": "",
+            "updatedBy": "yawar"
+	    }],
+    "addressDetails" :
+        {
+            "streetAddressL1" : "House 12",
+            "streetAddressL2" : "Gulberg Street",
+            "district" : "Nazimabad",
+            "zipCode" : "72240",
+            "city" : 
+                {
+                    "cityCode" : "SYD",
+                    "cityName" : "Sydney",
+                    "areaDialCode" : "21",
+                    "cityFares" : 
+                        {
+                            "dayFare" : "130",
+	                        "nightFare" : "160",
+                            "waitFare" : "75",
+                            "specialFee" : "20",
+                            "specialDiscount": "20",
+                            "comments": "Test Company City Fares Object 1",
+                            "deleted": null,
+                            "dateCreated": "",
+                            "createdBy": "yawar",
+                            "lastUpdated": "",
+                            "updatedBy": "yawar"  
+                        },
+                    "comments": "Test Company City Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar"
+                },
+            "country" : 
+                {                
+                    "countryCode" : "AUS",
+	                "countryName" : "Australia",
+	                "currencyDetails" :
+                        {
+                            "currencyCode" : "AUD",
+                            "currencyName" : "Australian Dollars",
+                            "countryCode" : "AUS",
+                            "currencySymbol" : "",
+                            "dollarXchangeRate" : "3",
+                            "comments": "Test Company Country Currency Object 1",
+                            "deleted": null,
+                            "dateCreated": "",
+                            "createdBy": "yawar",
+                            "lastUpdated": "",
+                            "updatedBy": "yawar"
+                        },
+	                "areaDialCode" : "61",
+	                "countryFares" : 
+                        {
+                            "dayFare" : "130",
+	                        "nightFare" : "160",
+                            "waitFare" : "75",
+                            "specialFee" : "20",
+                            "specialDiscount": "20",
+                            "comments": "Test Company Country Fares Object 1",
+                            "deleted": null,
+                            "dateCreated": "",
+                            "createdBy": "yawar",
+                            "lastUpdated": "",
+                            "updatedBy": "yawar"    
+                        },
+                    "comments": "Test Company Country Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar"  
+                },
+            "comments": "Test Company Address Object 1",
+            "deleted": null,
+            "dateCreated": "",
+            "createdBy": "yawar",
+            "lastUpdated": "",
+            "updatedBy": "yawar"
+	    },
+    "companyConfigurations" :
+        {
+            "notificationTypes" : ["EMAIL", "SMS", "FAX"],
+            "alertPreference" : "true",
+            "currency" :
+                {
+                    "currencyCode" : "PKR",
+                    "currencyName" : "Pakistani Rupees",
+                    "countryCode" : "PK",
+                    "currencySymbol" : "",
+                    "dollarXchangeRate" : "140",
+                    "comments": "Test Company Currency Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar"   
+                },
+            "timeZone" : "Pakistan",
+            "driverPrivilegesList" : [
+                {
+                    "driver" : 
+                        {
+                            "firstName" : "Ahsan",
+                            "lastName" : "Iqbal",
+                            "address" : 
+                                {
+                                "streetAddressL1" : "House 56",
+                                "streetAddressL2" : "Jail Road",
+                                "district" : "Defence",
+                                "zipCode" : "89240",
+                                "city" : 
+                                    {
+                                        "cityCode" : "SYD",
+                                        "cityName" : "Sydney",
+                                        "areaDialCode" : "21",
+                                        "cityFares" : 
+                                            {
+                                                "dayFare" : "130",
+                                                "nightFare" : "160",
+                                                "waitFare" : "75",
+                                                "specialFee" : "20",
+                                                "specialDiscount": "20",
+                                                "comments": "Test Driver City Fares Object 1",
+                                                "deleted": null,
+                                                "dateCreated": "",
+                                                "createdBy": "yawar",
+                                                "lastUpdated": "",
+                                                "updatedBy": "yawar"  
+                                            },
+                                        "comments": "Test Driver City Object 1",
+                                        "deleted": null,
+                                        "dateCreated": "",
+                                        "createdBy": "yawar",
+                                        "lastUpdated": "",
+                                        "updatedBy": "yawar"
+                                    },
+                                "country" : 
+                                    {                
+                                        "countryCode" : "AUS",
+                                        "countryName" : "Australia",
+                                        "currencyDetails" :
+                                            {
+                                                "currencyCode" : "AUD",
+                                                "currencyName" : "Australian Dollars",
+                                                "countryCode" : "AUS",
+                                                "currencySymbol" : "",
+                                                "dollarXchangeRate" : "3",
+                                                "comments": "Test Driver Country Currency Object 1",
+                                                "deleted": null,
+                                                "dateCreated": "",
+                                                "createdBy": "yawar",
+                                                "lastUpdated": "",
+                                                "updatedBy": "yawar"
+                                            },
+                                        "areaDialCode" : "61",
+                                        "countryFares" : 
+                                            {
+                                                "dayFare" : "130",
+                                                "nightFare" : "160",
+                                                "waitFare" : "75",
+                                                "specialFee" : "20",
+                                                "specialDiscount": "20",
+                                                "comments": "Test Driver Country Fares Object 1",
+                                                "deleted": null,
+                                                "dateCreated": "",
+                                                "createdBy": "yawar",
+                                                "lastUpdated": "",
+                                                "updatedBy": "yawar"    
+                                            },
+                                        "comments": "Test Driver Country Object 1",
+                                        "deleted": null,
+                                        "dateCreated": "",
+                                        "createdBy": "yawar",
+                                        "lastUpdated": "",
+                                        "updatedBy": "yawar" 
+                                    } 
+                                }
+                        },
+                    "agentPrivilege" :
+                        {
+                            "allowRejectJob" : "true",
+                            "showFare" : "false",
+                            "rewardDetails" :
+                                { 
+                                    "recurringReward" : "false",
+                                    "rewardsCounter" : "0",
+                                    "rewardAmount" : "500",
+                                    "rewardPercentage" : "25",
+                                    "comments": "Test Company Driver Privilege Reward Object 1",
+                                    "deleted": null,
+                                    "dateCreated": "",
+                                    "createdBy": "yawar",
+                                    "lastUpdated": "",
+                                    "updatedBy": "yawar" 
+                                },
+                            "jobDetails" :
+                                {
+                                    "startTime" : "07:00",
+                                    "endTime" : "22:00",
+                                    "maxJobsAllowed" : "100",
+                                    "showFare" : "false",
+                                    "comments": "Test Company Driver Privilege Job Object 1",
+                                    "deleted": null,
+                                    "dateCreated": "",
+                                    "createdBy": "yawar",
+                                    "lastUpdated": "",
+                                    "updatedBy": "yawar"                           
+                                }
+                        },
+                    "comments": "Test Company Driver Privilege Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar"   
+                }],
+            "fareScopeLevel" :  "COMPANY", 
+            "fareDetails" : 
+                {
+                    "dayFare" : "130",
+	                "nightFare" : "160",
+                    "waitFare" : "75",
+                    "specialFee" : "20",
+                    "specialDiscount": "20",
+                    "comments": "Test Company Fares Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar"    
+                },
+            "displaySettings" : 
+                {
+                    "allowMapView" : "true",
+                    "displayUnits" : "KM",
+                    "comments": "Test Company Display Setting Object 1",
+                    "deleted": null,
+                    "dateCreated": "",
+                    "createdBy": "yawar",
+                    "lastUpdated": "",
+                    "updatedBy": "yawar" 
+                },
+            "language" : "ENGLISH",
+            "comments": "Test Company Configurations Object 1",
+            "deleted": null,
+            "dateCreated": "",
+            "createdBy": "yawar",
+            "lastUpdated": "",
+            "updatedBy": "yawar"
+        },
+    "comments": "Test Company Object 1",
+	"deleted": null,
+	"dateCreated": "",
+	"createdBy": "yawar",
+	"lastUpdated": "",
+    "updatedBy": "yawar"
+}

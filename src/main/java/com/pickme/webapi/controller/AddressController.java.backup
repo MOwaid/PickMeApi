@@ -63,7 +63,7 @@ public class AddressController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<List<Address>>> responseEntity = new ResponseEntity<Response<List<Address>>>(response,HttpStatus.OK);				
 		return responseEntity;
@@ -102,7 +102,7 @@ public class AddressController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<List<AddressSearchModel>>> responseEntity = new ResponseEntity<Response<List<AddressSearchModel>>>(response,HttpStatus.OK);				
 		return responseEntity;
@@ -133,7 +133,7 @@ public class AddressController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<List<Address>>> responseEntity = new ResponseEntity<Response<List<Address>>>(response,HttpStatus.OK);				
 		return responseEntity;
@@ -167,7 +167,7 @@ public class AddressController {
 			response.setStatusCode("-1");
 			response.setMessage(Response.FAILED);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
 		ResponseEntity<Response<List<Address>>> responseEntity = new ResponseEntity<Response<List<Address>>>(response,HttpStatus.OK);
 		return responseEntity;
@@ -199,7 +199,7 @@ public class AddressController {
 			response.setMessage(Response.FAILED);
 			response.setSuccessful(false);
 			response.setMessageDetail(e.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}		
 		ResponseEntity<Response<Address>> responseEntity = new ResponseEntity<Response<Address>>(response,HttpStatus.OK);				
 		return responseEntity;		
@@ -221,7 +221,7 @@ public class AddressController {
 		    response.setMessage(Response.FAILED);
 		    response.setSuccessful(false);
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
 		}
 		ResponseEntity<Response<Address>> responseEntity = new ResponseEntity<Response<Address>>(response,HttpStatus.OK);
 		return responseEntity;
@@ -243,7 +243,7 @@ public class AddressController {
 		    response.setMessage(Response.FAILED);
 		    response.setSuccessful(false);
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);
 		}
 		ResponseEntity<Response<Address>> responseEntity = new ResponseEntity<Response<Address>>(response,HttpStatus.OK);
 		return responseEntity;
@@ -274,7 +274,7 @@ public class AddressController {
 		    response.setMessage(Response.FAILED);
 		    response.setSuccessful(false);
 		    response.setMessageDetail("ERROR: "+ex.getMessage());
-			LOGGER.error(ApplicationConstants.MODULE_ADDRESS, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
+			LOGGER.error(ApplicationConstants.MODULE_Address, AddressController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
 		}
 		ResponseEntity<Response<String>> responseEntity = new ResponseEntity<Response<String>>(response,HttpStatus.OK);
 		return responseEntity;

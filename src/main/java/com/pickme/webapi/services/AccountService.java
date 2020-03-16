@@ -1,5 +1,4 @@
 package com.pickme.webapi.services;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -7,67 +6,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import com.pickme.webapi.document.CAccount;
-import com.pickme.webapi.document.AutoUniqueID;
-import com.pickme.webapi.document.Booking;
+
 import com.pickme.webapi.common.Response;
+import com.pickme.webapi.document.Account;
 import com.pickme.webapi.repo.mongo.AccountRepository;
+import com.pickme.webapi.repo.mongo.LogRepository;
 
 @Service
 public class AccountService {
 
-	@Autowired AccountRepository Accrepo;
-	
-	public Response<List<CAccount>> getAllAccounts(Integer first,Integer rows, String globalFilter,String sortOrder) {
-		Response<List<CAccount>> response = new Response<List<CAccount>>();
-		if(first != null & rows != null) {
-			if(first > 0) {
-				rows+=first;
-			}
-			Page<CAccount> pageResult = Accrepo.findAll(PageRequest.of(first, rows));
-			long totalRecords = pageResult.getTotalElements();
-			response.setData(pageResult.getContent());
-			response.setTotalRecords(totalRecords);
-		}
-		return response;
+	@Autowired AccountRepository accountRepo;
+	@Autowired LogRepository logRepo;
+	public List<Account> getAllAccounts() {
+		List<Account> accounts = accountRepo.findByDeleted(false); 
+		return accounts;
 	}
 	
-	public CAccount getAccountById(String id) {
-		Optional<CAccount> account = Accrepo.findById(id);
-		return account != null ? account.get() : null;
+	public Account getAccountById(String id) {
+		Optional<Account> account = accountRepo.findById(id);
+		return account.get();
 	}
-	
-	public CAccount create(CAccount accObj) {
-		
-		
-		return Accrepo.insert(accObj);
+	public Account getAccountByAccountNumber(String accountNumber) {
+		return accountRepo.findByAccountNumber(accountNumber);
 	}
-	public CAccount updateAccount(CAccount accObj) {
-		String id  = accObj.getId();
-		
-		
-		Optional<CAccount> updateAccountOptional = Accrepo.findById(id);
-		CAccount updatedAcc = updateAccountOptional.get();
-		if(updateAccountOptional==null && updatedAcc==null )
-			return null;
-		//updatedBoking.setStatus(accObj.getStatus());
-		updatedAcc = accObj;
-
-		return Accrepo.save(accObj);
+	public Account getAccountByCustomerNumber(String customerNumber) {
+		return accountRepo.findByCustomerNumber(customerNumber);
 	}
-	
-	public CAccount updateAccountStatus(CAccount accountObj) {
-		Optional<CAccount> accountOptional = Accrepo.findById(accountObj.getId());
-		if(accountOptional ==null || accountOptional.get()==null)
-			return null;
-		CAccount dbAccount = accountOptional.get();
-		if(dbAccount!=null){
-			dbAccount.setStatus(accountObj.getStatus());
-			return Accrepo.save(dbAccount);
-		}else{
-			return null;
-		}
+	public Account getAccountByIBAN(String iban) {
+		return accountRepo.findByIBAN(iban);
 	}
-	
-	
+	public Account getAccountByCardNumber(String cardNumber) {
+		return accountRepo.findByCardNumber(cardNumber);
+	}
+	public Account getAccountByBranchCode(String branchCode) {
+		return accountRepo.findByBranchCode(branchCode);
+	}
+	public Account getAccountsByCreatedBy(String createdBy) {
+		return accountRepo.findByCreatedBy(createdBy);
+	}
+	public Account getAccountsByUpdatedBy(String updatedBy) {
+		return accountRepo.findByUpdatedBy(updatedBy);
+	}
+	public Account addAccount(Account account) {
+		Account newAccount = accountRepo.insert(account);
+		return newAccount;
+	}
+	public Account updateAccount(Account account) {
+		Account newAccount = accountRepo.save(account);
+		return newAccount;
+	}
+	public boolean deleteAccount(String id) {
+		return accountRepo.deleteAccount(id);
+	}
 }
