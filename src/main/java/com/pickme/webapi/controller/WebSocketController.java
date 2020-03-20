@@ -1,6 +1,12 @@
 package com.pickme.webapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.pickme.webapi.document.Booking;
+
 import org.springframework.messaging.Message;
 import org.springframework.messaging.converter.SimpleMessageConverter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -43,6 +49,32 @@ public class WebSocketController {
  //   @Scheduled(fixedRate = 1000)
     public void sendMessage(String message) {
         template.convertAndSend(SENDING_URL, message);//buildNextMessage());
+    }
+    
+    @SuppressWarnings("deprecation")
+	public String buildMessagebooking(Booking data)
+    {
+    	 ObjectMapper mapper = new ObjectMapper();
+		ObjectNode objectNode = mapper.createObjectNode();
+    	    objectNode.put("NotifyTo", "BOOKING");
+    	    try {
+				objectNode.put("data", mapper.writeValueAsString(data));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	   
+    	    
+    	    
+    	    try {
+				return mapper.writeValueAsString(objectNode);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				
+				e.printStackTrace();
+				return "";
+			}
+    	    
     }
 
     private String buildNextMessage() {

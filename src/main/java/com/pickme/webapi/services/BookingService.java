@@ -1,6 +1,8 @@
 package com.pickme.webapi.services;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -205,9 +207,19 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 		
 		AutoUniqueID ID = new AutoUniqueID();
 		ID.setCount(0);
-		ID.setPrefix("BK-");
+		ID.setPrefix("BK");
 		ID = autoIdservice.GetNewRef(ID);
-		bookingObj.setPrefixID(ID.getPrefix()+ID.getCount().toString());
+		
+		NumberFormat nf = new DecimalFormat("00000");
+		
+		LocalDate today = LocalDate.now();
+		String prefix = String.format("%02d",today.getMonthValue());
+		prefix = prefix + Calendar.getInstance().get(Calendar.YEAR) % 100;
+		
+		prefix = prefix + nf.format(ID.getCount());
+		
+		
+		bookingObj.setPrefixID(ID.getPrefix()+prefix);
 		
 		
 		

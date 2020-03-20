@@ -176,6 +176,8 @@ public class BookingController {
 			
 			*/
 			
+			
+			
 			//--- Save Customer
 			com.pickme.webapi.document.Customer newCustomer = new com.pickme.webapi.document.Customer();
 			
@@ -363,6 +365,8 @@ public class BookingController {
 				response.setStatusCode("0");
 				response.setMessage(Response.SUCCESSFUL);
 				response.setSuccessful(true);
+				String jsonString = webSocket.buildMessagebooking(bookingResponse);
+				webSocket.sendMessage(jsonString);
 				response.setMessageDetail("Booking status successfully updated.");
 			}
 			else {
@@ -396,7 +400,7 @@ public class BookingController {
 				response.setMessage(Response.SUCCESSFUL);
 				response.setSuccessful(true);
 				response.setMessageDetail("Booking Record has been successfully Updated.");
-				String jsonString = mapper.writeValueAsString(savedBooking);
+				String jsonString = webSocket.buildMessagebooking(savedBooking);
 				webSocket.sendMessage(jsonString);
 			}else{
 				response.setData(savedBooking);
@@ -429,6 +433,8 @@ public class BookingController {
 				response.setStatusCode("0");
 				response.setMessage(Response.SUCCESSFUL);
 				response.setSuccessful(true);
+				String jsonString = webSocket.buildMessagebooking(savedBooking);
+				webSocket.sendMessage(jsonString);
 				response.setMessageDetail("Booking Record has been successfully Updated.");
 			}else{
 				response.setData(savedBooking);
@@ -461,6 +467,8 @@ public class BookingController {
 				response.setStatusCode("0");
 				response.setMessage(Response.SUCCESSFUL);
 				response.setSuccessful(true);
+				String jsonString = webSocket.buildMessagebooking(savedBooking);
+				webSocket.sendMessage(jsonString);
 				response.setMessageDetail("Booking Record has been successfully Updated.");
 			}else{
 				response.setData(savedBooking);

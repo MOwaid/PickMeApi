@@ -3,9 +3,10 @@ package com.pickme.webapi.document;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.pickme.webapi.model.Address;
-
+@Document(collection="user")
 public class User {
 
 	@Id

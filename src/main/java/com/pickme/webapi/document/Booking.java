@@ -39,6 +39,10 @@ public class Booking {
 	private String Price;
 	private String drvcomm;
 	private String basecomm;
+	private String paymentType;
+	private CAccount paymentAcc;
+	private Recurring recurring;
+	
 	public String getId() {
 		return id;
 	}
@@ -217,5 +221,23 @@ public class Booking {
 	}
 	public void setBasecomm(String basecomm) {
 		this.basecomm = basecomm;
+	}
+	public String getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+	public CAccount getPaymentAccName() {
+		return paymentAcc;
+	}
+	public void setPaymentAccName(CAccount paymentAcc) {
+		this.paymentAcc = paymentAcc;
+	}
+	public Recurring getRecurring() {
+		return recurring;
+	}
+	public void setRecurring(Recurring recurring) {
+		this.recurring = recurring;
 	}
 }

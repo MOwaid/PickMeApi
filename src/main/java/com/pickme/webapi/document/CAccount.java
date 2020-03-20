@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-@Document(collection="accounts")
+@Document(collection="caccounts")
 public class CAccount {
 
 	@Id
@@ -26,6 +26,17 @@ public class CAccount {
 	private Date lastUpdated;
 	private String updatedBy; 
 	private boolean deleted;
+	private Address address; 
+    
+    private String companyPhoneNumber;
+    private String contactName;
+    private String contactPhoneNumber;
+    private String serviceChargePrec;
+    private Number discountPrec;
+    private boolean isActive;
+	
+	
+	
 	
 	public String getTitle() {
 		return title;
@@ -134,5 +145,47 @@ public class CAccount {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public String getCompanyPhoneNumber() {
+		return companyPhoneNumber;
+	}
+	public void setCompanyPhoneNumber(String companyPhoneNumber) {
+		this.companyPhoneNumber = companyPhoneNumber;
+	}
+	public String getContactName() {
+		return contactName;
+	}
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+	public String getServiceChargePrec() {
+		return serviceChargePrec;
+	}
+	public void setServiceChargePrec(String serviceChargePrec) {
+		this.serviceChargePrec = serviceChargePrec;
+	}
+	public String getContactPhoneNumber() {
+		return contactPhoneNumber;
+	}
+	public void setContactPhoneNumber(String contactPhoneNumber) {
+		this.contactPhoneNumber = contactPhoneNumber;
+	}
+	public Number getDiscountPrec() {
+		return discountPrec;
+	}
+	public void setDiscountPrec(Number discountPrec) {
+		this.discountPrec = discountPrec;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }
