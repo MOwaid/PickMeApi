@@ -26,6 +26,12 @@ public class User {
 	private Date createdAt;
 	private String ModifiedBy;
 	private Date lastModified;
+	private String email;
+	private String companyCode;
+	private Boolean active;
+	private Boolean isAccountLock;
+	
+	
 	
 	public String getId() {
 		return id;
@@ -123,6 +129,30 @@ public class User {
 	}
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	public Boolean getIsAccountLock() {
+		return isAccountLock;
+	}
+	public void setIsAccountLock(Boolean isAccountLock) {
+		this.isAccountLock = isAccountLock;
+	}
+	public String getCompanyCode() {
+		return companyCode;
+	}
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
 	}
 	
 }

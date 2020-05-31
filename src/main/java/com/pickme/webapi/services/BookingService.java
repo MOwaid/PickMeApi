@@ -5,7 +5,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -133,15 +136,29 @@ public class BookingService {
 		Response<List<Booking>> response = new Response<List<Booking>>();
 		
 		
-		/*List<Booking> bookingList = bookingRepo.findByDriverIdAndDate(driverId,fromDate,toDate);*/
+	
+		if(fromDate != null && toDate !=null)
+		{
+		List<Booking> bookingList = bookingRepo.findByDriverIdAndstartTime(driverId,convertToLocalDateViaInstant(fromDate),convertToLocalDateViaInstant(toDate));
+		response.setData(bookingList);
+		}
+		else {		
+		
 		List<Booking> bookingList = bookingRepo.findByDriverId(driverId);
+		response.setData(bookingList);
+		}
 		/*List<Booking> bookingList = bookingRepo.searchByDriverIdAndDate(driverId);*/
 			
-		response.setData(bookingList);
+		
 		return response;
 	}
 	
 	
+	public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDate();
+	}
 	
 public Response<List<Booking>> getBookingsByCustomerId(String CustomerId,Date fromDate,Date toDate) {
 		
@@ -149,11 +166,20 @@ public Response<List<Booking>> getBookingsByCustomerId(String CustomerId,Date fr
 		
 		
 		/*List<Booking> bookingList = bookingRepo.findByDriverIdAndDate(driverId,fromDate,toDate);*/
-		List<Booking> bookingList = bookingRepo.findByCustomerId(CustomerId);
+		if(fromDate != null && toDate !=null)
+		{
+		List<Booking> bookingList = bookingRepo.findByCustomerIdAndstartTime(CustomerId,convertToLocalDateViaInstant(fromDate),convertToLocalDateViaInstant(toDate));
+		response.setData(bookingList);
+		}
+		else
+		{
+			List<Booking> bookingList = bookingRepo.findByCustomerId(CustomerId);
+			response.setData(bookingList);
+		}
 		/*List<Booking> bookingList = bookingRepo.searchByDriverIdAndDate(driverId);*/
 	
 			
-		response.setData(bookingList);
+		
 		return response;
 	}
 		
@@ -244,20 +270,99 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 	{
 		//----Push Notification
 		JSONObject body = new JSONObject();
+	
+
 		String firebaseResponse="";
 	
 			if( topic != null)
+			{
 			body.put("to", "/topics/" + topic );
+	
+			}
+		
+	    body.put("priority", "high");
+	    //body.put("android_channel_id", "pickmecab_updates");
+	
+	    
+	    JSONObject notification = new JSONObject();
+	    notification.put("body",DriverName + " a new Job has been assigned to you.");
+	    notification.put("title","You get a new job Mr. " + DriverName);
+	   
+	    body.put("notification", notification);
+	/*    JSONObject data = new JSONObject();
+	    data.put("title", "Job Creation Notification");
+	    data.put("body", "New job has been created and assigned to you");
+	  //  data.put("message", "New Job");
+	   // data.put("click_action","new_ride");
+	    data.put("driver-id", driverID);
+	    data.put("booking-id", bookingID);
+	 
+	   	    
+	   
+	    	
+	    	
+	        body.put("data", data);*/
+	   
+	 
+	/**
+	    {
+	       
+	       "data": {
+	        "title": "JSA Notification",
+	          "body": "Happy Message!"
+	          "Key-1": "JSA Data 1",
+	          "Key-2": "JSA Data 2"
+	       },
+	       "to": "/topics/JavaSampleApproach",
+	       "priority": "high"
+	    }
+	*/
+	 
+	    HttpEntity<String> request = new HttpEntity<>(body.toString());
+	  
+	 
+	   CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
+	   CompletableFuture.allOf(pushNotification).join();
+	 
+	    try {
+	   firebaseResponse = pushNotification.get();
+	      
+	      
+	      return ("New Booking Record is Created."+firebaseResponse);
+	     
+	    } catch (InterruptedException e) {
+	      e.printStackTrace();
+	      return firebaseResponse;
+	    } catch (ExecutionException e) {
+	      e.printStackTrace();
+	      return firebaseResponse;
+	    }
+	 
+}
+
+	public String pushDataToTopic(String topic, String driverID, String bookingID, String DriverName)
+	{
+		//----Push Notification
+		JSONObject body = new JSONObject();
+		
+
+		String firebaseResponse="";
+	
+			if( topic != null)
+			{
+			body.put("to", "/topics/" + topic );
+		
+			}
 		
 	    body.put("priority", "high");
 	    //body.put("android_channel_id", "pickmecab_updates");
 	    
 	    
-	    JSONObject notification = new JSONObject();
+	   /* JSONObject notification = new JSONObject();
 	    notification.put("body",DriverName + " a new Job has been assigned to you.");
 	    notification.put("title","You get a new job Mr. " + DriverName);
-	    
-	    body.put("notification", notification);
+	   
+	    body.put("notification", notification);*/
 	    JSONObject data = new JSONObject();
 	    data.put("title", "Job Creation Notification");
 	    data.put("body", "New job has been created and assigned to you");
@@ -266,9 +371,12 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 	    data.put("driver-id", driverID);
 	    data.put("booking-id", bookingID);
 	 
-	    
-	    
-	    body.put("data", data);
+	   	    
+	   
+	    	
+	    	
+	        body.put("data", data);
+	   
 	 
 	/**
 	    {
@@ -286,11 +394,13 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 	 
 	    HttpEntity<String> request = new HttpEntity<>(body.toString());
 	 
-	    CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
-	    CompletableFuture.allOf(pushNotification).join();
 	 
-	    try {
-	      firebaseResponse = pushNotification.get();
+	  CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
+	  CompletableFuture.allOf(pushNotification).join();
+	
+	 try {
+	     firebaseResponse = pushNotification.get();
+	        
 	      return ("New Booking Record is Created."+firebaseResponse);
 	     
 	    } catch (InterruptedException e) {
@@ -330,7 +440,8 @@ public Response<List<Booking>> getBookingsByDriverIdstartTimeSorted(String drive
 
 		}else{
 			//if(currentDate.compareTo(bookingStartDate)==0)
-				booking.setStatus(ApplicationConstants.BOOKING_STATUS_ALLOCATED);
+				//booking.setStatus(ApplicationConstants.BOOKING_STATUS_ALLOCATED); //uncommit if you want to allocate driver at the time of job creation
+				booking.setStatus(ApplicationConstants.BOOKING_STATUS_BOOKED);
 		}
 		
 

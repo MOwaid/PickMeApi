@@ -26,6 +26,13 @@ public class CompanyService {
 		Optional<Company> company = companyRepo.findById(id);
 		return company.get();
 	}
+	
+	
+	public Company getCompanyByCode(String Code) {
+		Optional<Company> company = companyRepo.findByCompanyCode(Code);
+		return company.get();
+	}
+	
 	public List<Company> getCompanyByCompanyName(String companyName) {
 		List<Company> companies = companyRepo.findByCompanyName(companyName);
 		return companies; 

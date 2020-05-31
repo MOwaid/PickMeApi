@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pickme.webapi.common.ApplicationConstants;
 import com.pickme.webapi.common.Logger;
 import com.pickme.webapi.common.Response;
-
+import com.pickme.webapi.document.Booking;
 import com.pickme.webapi.document.User;
 import com.pickme.webapi.services.UserService;
 
@@ -32,7 +32,7 @@ public class UserController {
 	@Autowired Logger LOGGER;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getAllUsers(@RequestParam(value = "first", required = false) String first,
+	public ResponseEntity<Response<List<User>>> getAllUsers(@RequestParam(value = "first", required = false) String first,
 		    @RequestParam(value = "rows", required = false) String rows,
 		    @RequestParam(value = "sortOrder", required = false) String action,
 		    @RequestParam(value = "globalFilter", required = false) String globalFilter,
@@ -41,8 +41,54 @@ public class UserController {
 		List<User> users = new ArrayList<User>();
 		
 		
-		ResponseEntity<List<User>> response = new ResponseEntity<>(users,HttpStatus.OK);
-		return response;
+		
+		
+		
+		
+		
+		
+String METHOD_NAME = "getAllUsers";
+		
+		Response<List<User>> response = new Response<List<User>>();
+		try {			
+				response = userService.getAllUsers();//first,rows,globalFilter,sortOrder);
+				if(response != null) {			
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail(response.getData().size()+" Records Matched.");
+				}
+				else {
+					response = new Response<List<User>>();
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Record Matched.");
+				}
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_BOOKING, UserController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<List<User>>> responseEntity = new ResponseEntity<Response<List<User>>>(response,HttpStatus.OK);				
+		return responseEntity;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
 	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUserById(@PathVariable String id,
@@ -60,13 +106,25 @@ public class UserController {
 	
 		String METHOD_NAME = "create";
 		Response<User> response =  new Response<User>();
+		
 		try {
+			if(userService.findUserByuserId(user)==null)
+			{
 			User savedUser = userService.addUser(user);
 			    response.setData(savedUser);
 			    response.setStatusCode("0");
 			    response.setMessage(Response.SUCCESSFUL);
 			    response.setSuccessful(true);
 			    response.setMessageDetail("New User Record is Created.");
+			}
+			else
+			{
+				response.setData(null);
+			    response.setStatusCode("-1");
+			    response.setMessage(Response.FAILED);
+			    response.setSuccessful(false);
+			    response.setMessageDetail("User Record Already Exist.");
+			}
 		}
 		catch(Exception ex) {
 			response.setStatusCode("-1");
@@ -85,14 +143,16 @@ public class UserController {
 		Response<User> response = new Response<User>();
 		try {			
 			User dbuser = userService.findUserByuserName(user);
-				response.setData(dbuser);
-				if(dbuser != null) {			
+				
+				if(dbuser != null && dbuser.getIsAccountLock() != true && dbuser.getActive() == true) {	
+					response.setData(dbuser);
 					response.setStatusCode("0");
 					response.setMessage(Response.SUCCESSFUL);
 					response.setSuccessful(true);
 					response.setMessageDetail("Get User by UserName request was Successful.");			
 				}
 				else {
+					response.setData(null);
 					response.setStatusCode("0");
 					response.setMessage(Response.SUCCESSFUL);
 					response.setSuccessful(true);
@@ -119,8 +179,41 @@ public class UserController {
 		return null;
 	}
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseEntity<User> update(@RequestBody User user) {
-		return null;
+	public  ResponseEntity<Response<User>> update(@RequestBody User user) {
+		
+		String METHOD_NAME = "update";
+Response<User> response =  new Response<User>();
+		
+		try {
+			if(userService.findUserByuserId(user)!=null)
+			{
+			User savedUser = userService.updateUser(user);
+			    response.setData(savedUser);
+			    response.setStatusCode("0");
+			    response.setMessage(Response.SUCCESSFUL);
+			    response.setSuccessful(true);
+			    response.setMessageDetail("User record updated.");
+			}
+			else
+			{
+				response.setData(null);
+			    response.setStatusCode("-1");
+			    response.setMessage(Response.FAILED);
+			    response.setSuccessful(false);
+			    response.setMessageDetail("User Record doesn't Exist.");
+			}
+		}
+		catch(Exception ex) {
+			response.setStatusCode("-1");
+		    response.setMessage(Response.FAILED);
+		    response.setSuccessful(false);
+		    response.setMessageDetail("ERROR: "+ex.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_DRIVER, UserController.class.getName(), METHOD_NAME, ex.getMessage(), ApplicationConstants.APPLICATION_NAME);		    
+		}
+		ResponseEntity<Response<User>> responseEntity = new ResponseEntity<Response<User>>(response,HttpStatus.OK);
+		return responseEntity;
+		
+
 	}
 	@RequestMapping(value = "/", method = RequestMethod.DELETE)
 	public ResponseEntity<User> delete(@RequestBody User user) {

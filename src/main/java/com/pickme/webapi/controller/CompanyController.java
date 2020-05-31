@@ -90,6 +90,41 @@ public class CompanyController {
 		ResponseEntity<Response<Company>> responseEntity = new ResponseEntity<Response<Company>>(response,HttpStatus.OK);				
 		return responseEntity;		
 	}
+	
+	
+	
+	
+	@RequestMapping(value = "/{companyCode}", method = RequestMethod.GET)
+	public ResponseEntity<Response<Company>> getCompanyByCode(@PathVariable String companyCode) {	
+		String METHOD_NAME = "getCompanyByCode";
+		Response<Company> response = new Response<Company>();
+		try {			
+			Company company = companyService.getCompanyByCode(companyCode);
+			response.setData(company);
+			if(company != null) {			
+				response.setStatusCode("0");
+				response.setMessage(Response.SUCCESSFUL);
+				response.setSuccessful(true);
+				response.setMessageDetail("Get Company by Code request was Successful.");			
+			}
+			else {
+					response.setStatusCode("0");
+					response.setMessage(Response.SUCCESSFUL);
+					response.setSuccessful(true);
+					response.setMessageDetail("No Company Record Found for Code '"+companyCode+"'");
+				}		
+		}
+		catch(Exception e) {
+			response.setStatusCode("-1");
+			response.setMessage(Response.FAILED);
+			response.setSuccessful(false);
+			response.setMessageDetail(e.getMessage());
+			LOGGER.error(ApplicationConstants.MODULE_COMPANY, CompanyController.class.getName(), METHOD_NAME, e.getMessage(), ApplicationConstants.APPLICATION_NAME);
+		}		
+		ResponseEntity<Response<Company>> responseEntity = new ResponseEntity<Response<Company>>(response,HttpStatus.OK);				
+		return responseEntity;		
+	}
+	
 ////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/{companyName}", method = RequestMethod.GET)
 	public ResponseEntity<Response<List<Company>>> getCompaniesByCompanyName(@PathVariable String companyName) {	

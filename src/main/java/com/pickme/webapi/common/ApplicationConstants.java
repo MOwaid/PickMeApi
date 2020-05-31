@@ -21,7 +21,7 @@ public class ApplicationConstants {
 	public static final String MODULE_COMPANY = "COMPANY";
 	
 	// Booking Status
-	public static final String BOOKING_STATUS_DISPATCH = "DISPATCH";
+	public static final String BOOKING_STATUS_DISPATCH = "DISPATCHED";
 	public static final String BOOKING_STATUS_ALLOCATED = "ALLOCATED";
 	public static final String BOOKING_STATUS_PRE_BOOKED = "PREBOOKED";
 	public static final String BOOKING_STATUS_BOOKED = "BOOKED";

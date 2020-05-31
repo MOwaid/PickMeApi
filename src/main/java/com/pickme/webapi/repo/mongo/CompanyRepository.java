@@ -1,6 +1,7 @@
 package com.pickme.webapi.repo.mongo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +16,6 @@ public interface CompanyRepository extends MongoRepository<Company, String>,Comp
 	public List<Company> findByUpdatedBy(String updatedBy);
 	public List<Company> findByDeleted(boolean deleted);
 	Page<Company> findByDeleted(boolean deleted, Pageable pageable);
+	public Optional<Company> findByCompanyCode(String companyCode);
 
 }

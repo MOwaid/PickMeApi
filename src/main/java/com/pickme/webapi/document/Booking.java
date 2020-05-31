@@ -31,12 +31,15 @@ public class Booking {
 	private Integer numberOfPassenger;
 	private String taxiNumber;
 	private String vi;
-	private String extra;
+	private String extra1;
+	private String extra2;
+	private String extra3;
 	private String lead;
 	private String status;
 	private String site;
 	private String flightNo;
 	private String Price;
+	private String Total;
 	private String drvcomm;
 	private String basecomm;
 	private String paymentType;
@@ -121,12 +124,7 @@ public class Booking {
 	public void setVi(String vi) {
 		this.vi = vi;
 	}
-	public String getExtra() {
-		return extra;
-	}
-	public void setExtra(String extra) {
-		this.extra = extra;
-	}
+
 	public String getLead() {
 		return lead;
 	}
@@ -239,5 +237,29 @@ public class Booking {
 	}
 	public void setRecurring(Recurring recurring) {
 		this.recurring = recurring;
+	}
+	public String getExtra1() {
+		return extra1;
+	}
+	public void setExtra1(String extra1) {
+		this.extra1 = extra1;
+	}
+	public String getExtra2() {
+		return extra2;
+	}
+	public void setExtra2(String extra2) {
+		this.extra2 = extra2;
+	}
+	public String getExtra3() {
+		return extra3;
+	}
+	public void setExtra3(String extra3) {
+		this.extra3 = extra3;
+	}
+	public String getTotal() {
+		return Total;
+	}
+	public void setTotal(String total) {
+		Total = total;
 	}
 }

@@ -25,8 +25,15 @@ public interface BookingRepository extends MongoRepository<Booking, String>{
 	Page<Booking> findByDriver(Driver driver, Pageable pageable);
 	Page<Booking> findByCustomer(Customer customer, Pageable pageable);
 	Booking findByIdAndDriver(String id,Driver driver);
-	/*@Query("{ 'driverId' : ?0 , 'startTime' :{ $gte: ?1, $lte: ?2 }}")
-	List<Booking> findByDriverIdAndDate(String driverId, java.util.Date fromDate,java.util.Date toDate );*/
+	@Query("{ 'startTime' : { $gte: ?1, $lte: ?2 }}")
+	List<Booking> findByDriverIdAndstartTime(String driverId, LocalDate fromDate,LocalDate toDate );
+	
+	
+	@Query("{ 'startTime' : { $gte: ?1, $lte: ?2 }}")
+	List<Booking> findByCustomerIdAndstartTime(String customerId, LocalDate fromDate,LocalDate toDate );
+	
+	
+	
 	@Query("{ 'driver' : {'id' :?0} }")
 	List<Booking> searchByDriverIdAndDate(String driverId);
 	

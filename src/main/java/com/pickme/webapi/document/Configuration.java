@@ -26,6 +26,27 @@ public class Configuration {
 	private String createdBy;
 	private Date lastUpdated;
 	private String updatedBy;
+	private String DateFormat;
+	private String TimeFormat;
+	private String Extra1;
+	private String Extra2;
+	private String Extra3;
+	private String Accountlabel;
+	private int BookedTabFromHour;
+	private int BookedTabToHour;
+	private String BookingRefNumber;
+	private int CompletedTabFromHour;
+	private int CancelledTabFromHour;
+	private int DispatchAppTimmer;
+	private int DispatchServerTimmer;
+	private int Moneydecimalplace;
+	private String BaseCountry;
+	private String BaseCity;
+	
+	
+	
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -121,6 +142,102 @@ public class Configuration {
 	}
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	public String getDateFormat() {
+		return DateFormat;
+	}
+	public void setDateFormat(String dateFormat) {
+		DateFormat = dateFormat;
+	}
+	public String getTimeFormat() {
+		return TimeFormat;
+	}
+	public void setTimeFormat(String timeFormat) {
+		TimeFormat = timeFormat;
+	}
+	public String getExtra1() {
+		return Extra1;
+	}
+	public void setExtra1(String extra1) {
+		Extra1 = extra1;
+	}
+	public String getExtra2() {
+		return Extra2;
+	}
+	public void setExtra2(String extra2) {
+		Extra2 = extra2;
+	}
+	public String getExtra3() {
+		return Extra3;
+	}
+	public void setExtra3(String extra3) {
+		Extra3 = extra3;
+	}
+	public String getAccountlabel() {
+		return Accountlabel;
+	}
+	public void setAccountlabel(String accountlabel) {
+		Accountlabel = accountlabel;
+	}
+	public int getBookedTabFromHour() {
+		return BookedTabFromHour;
+	}
+	public void setBookedTabFromHour(int bookedTabFromHour) {
+		BookedTabFromHour = bookedTabFromHour;
+	}
+	public int getCompletedTabFromHour() {
+		return CompletedTabFromHour;
+	}
+	public void setCompletedTabFromHour(int completedTabFromHour) {
+		CompletedTabFromHour = completedTabFromHour;
+	}
+	public int getCancelledTabFromHour() {
+		return CancelledTabFromHour;
+	}
+	public void setCancelledTabFromHour(int cancelledTabFromHour) {
+		CancelledTabFromHour = cancelledTabFromHour;
+	}
+	public int getDispatchAppTimmer() {
+		return DispatchAppTimmer;
+	}
+	public void setDispatchAppTimmer(int dispatchAppTimmer) {
+		DispatchAppTimmer = dispatchAppTimmer;
+	}
+	public int getDispatchServerTimmer() {
+		return DispatchServerTimmer;
+	}
+	public void setDispatchServerTimmer(int dispatchServerTimmer) {
+		DispatchServerTimmer = dispatchServerTimmer;
+	}
+	public int getMoneydecimalplace() {
+		return Moneydecimalplace;
+	}
+	public void setMoneydecimalplace(int moneydecimalplace) {
+		Moneydecimalplace = moneydecimalplace;
+	}
+	public int getBookedTabToHour() {
+		return BookedTabToHour;
+	}
+	public void setBookedTabToHour(int bookedTabToHour) {
+		BookedTabToHour = bookedTabToHour;
+	}
+	public String getBookingRefNumber() {
+		return BookingRefNumber;
+	}
+	public void setBookingRefNumber(String bookingRefNumber) {
+		BookingRefNumber = bookingRefNumber;
+	}
+	public String getBaseCountry() {
+		return BaseCountry;
+	}
+	public void setBaseCountry(String baseCountry) {
+		BaseCountry = baseCountry;
+	}
+	public String getBaseCity() {
+		return BaseCity;
+	}
+	public void setBaseCity(String baseCity) {
+		BaseCity = baseCity;
 	}
 	
 }

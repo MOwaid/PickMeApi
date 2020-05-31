@@ -189,6 +189,26 @@ public class BookingController {
 				com.pickme.webapi.document.Customer savedCustomer = customerService.addCustomer(newCustomer);
 				booking.getCustomer().setId(savedCustomer.getId());
 			}
+			
+			
+			
+			
+			//--- Save Customer
+			com.pickme.webapi.document.Recurring recuring = new com.pickme.webapi.document.Recurring();
+			
+			if(booking.getRecurring()!=null && booking.getRecurring().getId() == null)
+			{
+				/*newCustomer.setFirstName(booking.getCustomer().getFirstName());*/
+				recuring = booking.getRecurring();
+				//newCustomer.setAddresses(newAdrModel);
+				//com.pickme.webapi.document.Recurring savedCustomer = customerService.addCustomer(newCustomer);
+				booking.setRecurring(recuring);
+			}
+			
+			
+			
+			
+			
 			/*newCustomer.setFirstName(booking.getCustomer().getFirstName());
 			newCustomer.setAddresses(newAdrModel);
 			com.pickme.webapi.document.Customer savedCustomer = customerService.addCustomer(newCustomer);*/
@@ -218,7 +238,7 @@ public class BookingController {
 					if (driver != null && driverID != null)
 					{
 						
-						firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
+				//		firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
 					//	response.setMessageDetail(firebaseResponse);
 				   /* body.put("priority", "high");
 				    //body.put("android_channel_id", "pickmecab_updates");
@@ -305,9 +325,12 @@ public class BookingController {
 				String driverID = driver.getId();// getLoginId();
 				if (driver != null && driverID != null)
 				{
-					
-					firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
-					response.setMessageDetail(firebaseResponse);
+					if(savedBooking.getStatus().equals(ApplicationConstants.BOOKING_STATUS_DISPATCH) )
+					{
+						firebaseResponse = bookingService.pushNotificationToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
+						firebaseResponse = bookingService.pushDataToTopic(driverID,savedBooking.getDriver().getId(),savedBooking.getId(),savedBooking.getDriver().getFirstName());
+						response.setMessageDetail(firebaseResponse);
+					}
 				}
 		}
 		catch(Exception ex) {
